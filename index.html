@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Podología Avanzada | Clínica Premium de Podología</title>
+  <meta name="description" content="Clínica de podología premium con tecnología avanzada, especialistas certificados y atención personalizada. De la prevención a la cirugía, cuidamos cada uno de tus pasos." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: { 50:'#f0fdfa',100:'#ccfbf1',200:'#99f6e4',400:'#2dd4bf',500:'#14b8a6',600:'#0d9488',700:'#0f766e',800:'#115e59',900:'#134e4a' },
+            gold: '#c9a96e',
+            champagne: '#e8d5b0',
+          },
+          fontFamily: {
+            display: ['Cormorant Garamond','Georgia','serif'],
+            body: ['DM Sans','system-ui','sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',system-ui,sans-serif;}
+    h1,h2,h3,.font-display{font-family:'Cormorant Garamond',Georgia,serif;}
+
+    .gold-line::after{content:'';display:block;width:60px;height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5b0);margin-top:12px;}
+    .gold-line-center::after{content:'';display:block;width:60px;height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5b0);margin:12px auto 0;}
+
+    .glass-nav{background:rgba(255,255,255,0.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,169,110,0.15);}
+
+    .hero-overlay{background:linear-gradient(135deg,rgba(13,148,136,0.84) 0%,rgba(15,118,110,0.76) 40%,rgba(17,94,89,0.66) 100%);}
+
+    .service-card{transition:all 0.35s cubic-bezier(0.4,0,0.2,1);border:1px solid rgba(13,148,136,0.1);}
+    .service-card:hover{transform:translateY(-6px);border-color:rgba(201,169,110,0.4);box-shadow:0 24px 48px rgba(13,148,136,0.12),0 0 0 1px rgba(201,169,110,0.2);}
+    .service-card:hover .service-icon{background:linear-gradient(135deg,#0d9488,#0f766e);color:white;}
+
+    .value-card{transition:all 0.3s ease;border-top:3px solid transparent;}
+    .value-card:hover{border-top-color:#c9a96e;transform:translateY(-4px);}
+
+    .testimonial-card{background:white;border:1px solid rgba(13,148,136,0.08);transition:all 0.3s ease;}
+    .testimonial-card:hover{box-shadow:0 20px 40px rgba(13,148,136,0.1);}
+
+    .btn-primary{background:linear-gradient(135deg,#0d9488 0%,#0f766e 100%);transition:all 0.3s ease;box-shadow:0 4px 20px rgba(13,148,136,0.35);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(13,148,136,0.5);}
+
+    .btn-gold{background:linear-gradient(135deg,#c9a96e 0%,#b8935a 100%);transition:all 0.3s ease;box-shadow:0 4px 20px rgba(201,169,110,0.4);}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,169,110,0.55);}
+
+    .form-input{border:1.5px solid #e2e8f0;transition:border-color 0.25s,box-shadow 0.25s;}
+    .form-input:focus{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,0.1);outline:none;}
+
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-delay-1{transition-delay:0.1s;}
+    .reveal-delay-2{transition-delay:0.2s;}
+    .reveal-delay-3{transition-delay:0.3s;}
+    .reveal-delay-4{transition-delay:0.4s;}
+
+    #mobile-menu{transition:all 0.3s ease;max-height:0;overflow:hidden;}
+    #mobile-menu.open{max-height:500px;}
+
+    .badge-gold{background:linear-gradient(135deg,#c9a96e20,#e8d5b015);border:1px solid rgba(201,169,110,0.35);color:#9a7340;}
+
+    .map-placeholder{background:linear-gradient(135deg,#f0fdfa 0%,#ccfbf1 100%);border:2px dashed rgba(13,148,136,0.25);}
+
+    .stars{color:#c9a96e;}
+    .bg-section-alt{background:linear-gradient(180deg,#f8fafc 0%,#f0fdfa 100%);}
+
+    /* WhatsApp float button */
+    .whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:998;background:#25D366;border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,0.45);transition:all 0.3s ease;cursor:pointer;}
+    .whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,0.6);}
+
+    /* WhatsApp panel */
+    #wa-panel{position:fixed;bottom:100px;right:28px;z-index:997;background:white;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.15);width:290px;transform:translateY(20px) scale(0.95);opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);}
+    #wa-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+
+    /* Top bar */
+    .topbar{background:linear-gradient(90deg,#0f766e,#0d9488);}
+
+    /* FAQ accordion */
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;}
+    .faq-answer.open{max-height:400px;}
+    .faq-icon{transition:transform 0.3s ease;}
+    .faq-item.open .faq-icon{transform:rotate(180deg);}
+
+    /* Process step */
+    .process-step{position:relative;}
+    .process-step:not(:last-child)::after{content:'';position:absolute;top:28px;left:calc(50% + 28px);width:calc(100% - 56px);height:2px;background:linear-gradient(90deg,#0d9488,#14b8a6);opacity:0.3;}
+
+    /* Doctor card */
+    .doctor-card{transition:all 0.35s ease;border:1px solid rgba(13,148,136,0.08);}
+    .doctor-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(13,148,136,0.12);}
+
+    /* Ticker scroll */
+    @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .ticker-track{display:flex;animation:ticker 30s linear infinite;white-space:nowrap;}
+    .ticker-track:hover{animation-play-state:paused;}
+
+    /* Counter animation */
+    .counter{font-variant-numeric:tabular-nums;}
+
+    /* Pulse dot */
+    @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+    .pulse-dot{animation:pulse-dot 2s ease-in-out infinite;}
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 antialiased">
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar text-white text-xs font-body py-2 px-4 hidden sm:block">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <span class="flex items-center gap-1.5">
+        <span class="pulse-dot w-1.5 h-1.5 bg-green-300 rounded-full inline-block"></span>
+        Aceptamos citas en el día
+      </span>
+      <span class="flex items-center gap-1.5">
+        <i data-lucide="clock" class="w-3 h-3"></i>
+        Lun–Vie 8:00–18:00 h
+      </span>
+    </div>
+    <div class="flex items-center gap-5">
+      <a href="https://wa.me/5215573998121" target="_blank" class="flex items-center gap-1.5 hover:text-green-200 transition-colors">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+        55 7399 8121
+      </a>
+      <a href="https://wa.me/5215513956986" target="_blank" class="flex items-center gap-1.5 hover:text-green-200 transition-colors">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+        55 1395 6986
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== WHATSAPP PANEL ===================== -->
+<div id="wa-panel">
+  <div class="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+        <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+      </div>
+      <div>
+        <p class="font-body text-white text-sm font-semibold">Podología Avanzada</p>
+        <p class="font-body text-white/70 text-xs">Elige una línea para escribirnos</p>
+      </div>
+      <button onclick="closeWaPanel()" class="ml-auto text-white/70 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+  <div class="p-4 flex flex-col gap-3">
+    <a href="https://wa.me/5215573998121?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20en%20Podología%20Avanzada" target="_blank"
+       class="flex items-center gap-3 bg-green-50 hover:bg-green-100 border border-green-200 rounded-xl p-3.5 transition-all duration-200 group">
+      <div class="w-10 h-10 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+        <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+      </div>
+      <div>
+        <p class="font-body text-sm font-semibold text-gray-800">Línea 1</p>
+        <p class="font-body text-xs text-gray-500">55 7399 8121</p>
+      </div>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 ml-auto group-hover:text-teal-600"></i>
+    </a>
+    <a href="https://wa.me/5215513956986?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20en%20Podología%20Avanzada" target="_blank"
+       class="flex items-center gap-3 bg-green-50 hover:bg-green-100 border border-green-200 rounded-xl p-3.5 transition-all duration-200 group">
+      <div class="w-10 h-10 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+        <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+      </div>
+      <div>
+        <p class="font-body text-sm font-semibold text-gray-800">Línea 2</p>
+        <p class="font-body text-xs text-gray-500">55 1395 6986</p>
+      </div>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 ml-auto group-hover:text-teal-600"></i>
+    </a>
+    <p class="font-body text-xs text-gray-400 text-center">Respondemos en menos de 10 minutos</p>
+  </div>
+</div>
+
+<!-- Floating WhatsApp button -->
+<button onclick="toggleWaPanel()" class="whatsapp-float" aria-label="Contáctanos por WhatsApp" id="wa-float-btn">
+  <svg id="wa-icon-open" viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+  <svg id="wa-icon-close" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="24" height="24" class="hidden"><path d="M18 6L6 18M6 6l12 12"/></svg>
+</button>
+
+<!-- ===================== NAVBAR ===================== -->
+<header id="navbar" class="glass-nav fixed left-0 right-0 z-50 transition-all duration-300" style="top:0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between py-3">
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center shadow-md">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" width="22" height="22">
+            <path d="M12 2C8 2 5 5.5 5 9c0 2.5 1 4.5 2.5 6C9 16.5 9.5 18 9.5 20h5c0-2 .5-3.5 2-5 1.5-1.5 2.5-3.5 2.5-6 0-3.5-3-7-7-7z"/>
+            <line x1="9.5" y1="20" x2="14.5" y2="20"/>
+            <line x1="10" y1="22" x2="14" y2="22"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display text-xl font-semibold text-teal-700 leading-none block">Podología</span>
+          <span class="font-body text-xs text-yellow-600 tracking-widest uppercase">Avanzada</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-7">
+        <a href="#inicio" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">Inicio</a>
+        <a href="#servicios" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">Servicios</a>
+        <a href="#equipo" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">Equipo</a>
+        <a href="#nosotros" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">Nosotros</a>
+        <a href="#faq" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">FAQ</a>
+        <a href="#contacto" class="font-body text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">Contacto</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#contacto" class="hidden sm:inline-flex btn-primary text-white text-sm font-medium font-body px-5 py-2.5 rounded-lg items-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Cita
+        </a>
+        <button id="menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-colors" aria-label="Menú">
+          <i data-lucide="menu" class="w-5 h-5" id="menu-icon-open"></i>
+          <i data-lucide="x" class="w-5 h-5 hidden" id="menu-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100">
+    <div class="px-4 py-4 flex flex-col gap-3">
+      <a href="#inicio" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">Inicio</a>
+      <a href="#servicios" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">Servicios</a>
+      <a href="#equipo" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">Equipo</a>
+      <a href="#nosotros" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">Nosotros</a>
+      <a href="#faq" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">FAQ</a>
+      <a href="#contacto" class="mobile-link font-body text-sm font-medium text-gray-700 hover:text-teal-600 py-2 border-b border-gray-50">Contacto</a>
+      <a href="#contacto" class="btn-primary text-white text-sm font-medium font-body px-5 py-2.5 rounded-lg text-center mt-1">Agendar Cita</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1800&auto=format&fit=crop&q=80"
+      alt="Clínica de Podología Avanzada" class="w-full h-full object-cover object-center"/>
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white/10 to-transparent"></div>
+    <div class="absolute top-1/4 right-12 w-px h-40 bg-gradient-to-b from-transparent via-yellow-300/40 to-transparent hidden lg:block"></div>
+    <div class="absolute top-1/3 right-20 w-px h-24 bg-gradient-to-b from-transparent via-yellow-300/25 to-transparent hidden lg:block"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28">
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-8">
+      <i data-lucide="shield-check" class="w-4 h-4 text-yellow-200"></i>
+      <span class="font-body text-xs font-medium text-white/90 tracking-wider uppercase">Clínica Certificada · Derma Pharmacie · Tecnología de Vanguardia</span>
+    </div>
+    <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold text-white leading-[1.1] mb-6">
+      La Salud de tu Cuerpo<br/>
+      <span class="text-yellow-200 italic">Comienza en tus Pies.</span>
+    </h1>
+    <p class="font-body text-lg sm:text-xl text-white/85 max-w-2xl mx-auto leading-relaxed mb-10">
+      Cuidado podológico integral y avanzado. De la prevención a la alta cirugía, devolvemos el bienestar a cada uno de tus pasos.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="#servicios" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 backdrop-blur-sm border-2 border-white/40 hover:bg-white/25 text-white font-body font-medium px-8 py-3.5 rounded-lg transition-all duration-300 hover:-translate-y-1">
+        <i data-lucide="grid-3x3" class="w-4 h-4"></i> Ver Servicios
+      </a>
+      <button onclick="openCartaModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-gold text-white font-body font-semibold px-8 py-3.5 rounded-lg">
+        <i data-lucide="file-text" class="w-4 h-4"></i> Carta de Presentación
+      </button>
+    </div>
+    <!-- Stats -->
+    <div class="mt-16 sm:mt-20 grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+      <div class="text-center">
+        <div class="font-display text-4xl font-semibold text-white counter" data-target="6">0</div>
+        <div class="font-body text-xs text-white/70 mt-1 uppercase tracking-wider">Años de Experiencia</div>
+      </div>
+      <div class="text-center border-x border-white/20">
+        <div class="font-display text-4xl font-semibold text-white counter" data-target="5000" data-suffix="+">0</div>
+        <div class="font-body text-xs text-white/70 mt-1 uppercase tracking-wider">Pacientes Atendidos</div>
+      </div>
+      <div class="text-center">
+        <div class="font-display text-4xl font-semibold text-white counter" data-target="98" data-suffix="%">0</div>
+        <div class="font-body text-xs text-white/70 mt-1 uppercase tracking-wider">Satisfacción</div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+    <div class="w-8 h-12 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5">
+      <div class="w-1 h-3 bg-white/70 rounded-full"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TICKER ===================== -->
+<div class="bg-teal-700 py-3 overflow-hidden">
+  <div class="ticker-track">
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Cirugía Mínimamente Invasiva</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Plantillas Impresas en 3D</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Tratamiento Láser de Hongos</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Pie Diabético Especializado</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Análisis Computarizado de la Marcha</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Podología Deportiva</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Atención Infantil y Geriátrica</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Cirugía Mínimamente Invasiva</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Plantillas Impresas en 3D</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Tratamiento Láser de Hongos</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Pie Diabético Especializado</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Análisis Computarizado de la Marcha</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Podología Deportiva</span>
+    <span class="font-body text-xs text-white/80 tracking-widest uppercase px-8">✦ Atención Infantil y Geriátrica</span>
+  </div>
+</div>
+
+<!-- ===================== PROPUESTA DE VALOR ===================== -->
+<section class="py-20 bg-white" id="valor">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">¿Por qué elegirnos?</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Excelencia que Marca la Diferencia</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-1">
+        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="cpu" class="w-7 h-7 text-teal-600"></i></div>
+        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Tecnología Avanzada</h3>
+        <p class="font-body text-sm text-gray-500 leading-relaxed">Equipamiento de última generación: diagnóstico por imagen, análisis computarizado de la marcha e impresión 3D de ortesis personalizadas.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-2">
+        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="graduation-cap" class="w-7 h-7 text-teal-600"></i></div>
+        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Especialistas Certificados</h3>
+        <p class="font-body text-sm text-gray-500 leading-relaxed">Equipo con titulación universitaria en Podología y formación continua en los congresos internacionales más relevantes de la especialidad.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-3">
+        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="heart-handshake" class="w-7 h-7 text-teal-600"></i></div>
+        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Atención Personalizada</h3>
+        <p class="font-body text-sm text-gray-500 leading-relaxed">Cada paciente recibe un plan de tratamiento individualizado, con seguimiento continuo y comunicación directa con su especialista.</p>
+      </div>
+      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-4">
+        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="shield" class="w-7 h-7 text-teal-600"></i></div>
+        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Máxima Esterilización</h3>
+        <p class="font-body text-sm text-gray-500 leading-relaxed">Protocolos hospitalarios de desinfección y esterilización en autoclave certificada. Tu seguridad es nuestra prioridad absoluta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICIOS ===================== -->
+<section id="servicios" class="py-24 bg-section-alt">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Catálogo Integral</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 mb-4 gold-line-center">Nuestros Servicios Especializados</h2>
+      <p class="font-body text-gray-500 max-w-xl mx-auto text-base mt-6">Un amplio espectro de soluciones podológicas para cada etapa de la vida, con el más alto estándar médico.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-1">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="scissors" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Podología General y Quiropodología</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Corte correcto de uñas, tratamiento de hiperqueratosis, callosidades (helomas) y mantenimiento integral del pie.</p>
+        <div onclick="openServiceModal('general')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-2">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Podología Dermatológica</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Tratamiento definitivo de onicomicosis con láser, verrugas plantares, papilomas, eccemas, anhidrosis e hiperhidrosis plantar.</p>
+        <div onclick="openServiceModal('derma')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-3">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="stethoscope" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Cirugía Podológica Avanzada</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Cirugía ambulatoria mínimamente invasiva para onicocriptosis crónica y deformidades menores del pie. Recuperación rápida y sin dolor.</p>
+        <div onclick="openServiceModal('cirugia')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-4">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="activity" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Biomecánica y Ortopodología</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Estudio computarizado de la marcha y la pisada. Diseño y fabricación de plantillas personalizadas impresas en 3D.</p>
+        <div onclick="openServiceModal('biomecanica')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-1">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="heart-pulse" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Pie Diabético</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Prevención, evaluación neuropática y vascular, curación especializada de úlceras y protocolo preventivo avanzado.</p>
+        <div onclick="openServiceModal('diabetico')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-2">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="zap" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Podología Deportiva</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Prevención de lesiones en atletas, vendajes funcionales avanzados y optimización biomecánica del gesto deportivo.</p>
+        <div onclick="openServiceModal('deportiva')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+      <div class="service-card bg-white rounded-2xl p-6 reveal reveal-delay-3 sm:col-span-2 lg:col-span-1 xl:col-span-2">
+        <div class="service-icon w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"><i data-lucide="users" class="w-6 h-6"></i></div>
+        <h3 class="font-display text-xl font-semibold text-gray-900 mb-2 leading-snug">Podología Infantil y Geriátrica</h3>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Atención especializada para todas las edades: seguimiento del correcto desarrollo del pie en niños y mantenimiento de la movilidad, confort y calidad de vida en adultos mayores.</p>
+        <div onclick="openServiceModal('infantil')" class="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-teal-600 text-xs font-medium font-body cursor-pointer hover:gap-2.5 transition-all select-none"><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i> Más información</div>
+      </div>
+    </div>
+    <div class="text-center mt-12 reveal">
+      <a href="#contacto" class="btn-primary inline-flex items-center gap-2 text-white font-body font-medium px-8 py-3.5 rounded-lg">
+        <i data-lucide="calendar-plus" class="w-4 h-4"></i> Solicitar Consulta Especializada
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESO ===================== -->
+<section class="py-24 bg-white" id="proceso">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Tu camino hacia el bienestar</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Cómo Funciona tu Consulta</h2>
+      <p class="font-body text-gray-500 max-w-xl mx-auto text-base mt-6">Un proceso sencillo, transparente y orientado a resultados. Desde el primer contacto hasta el alta.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div class="process-step text-center reveal reveal-delay-1">
+        <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="font-body text-xs font-semibold text-teal-600 uppercase tracking-wider mb-1">Paso 1</div>
+        <h4 class="font-display text-xl font-semibold text-gray-900 mb-2">Agenda</h4>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Contáctanos por WhatsApp, teléfono o formulario. Respondemos en menos de 10 min.</p>
+      </div>
+      <div class="process-step text-center reveal reveal-delay-2">
+        <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i data-lucide="clipboard-list" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="font-body text-xs font-semibold text-teal-600 uppercase tracking-wider mb-1">Paso 2</div>
+        <h4 class="font-display text-xl font-semibold text-gray-900 mb-2">Diagnóstico</h4>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Evaluación completa con historial clínico, exploración física y diagnóstico por imagen si se requiere.</p>
+      </div>
+      <div class="process-step text-center reveal reveal-delay-3">
+        <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i data-lucide="file-text" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="font-body text-xs font-semibold text-teal-600 uppercase tracking-wider mb-1">Paso 3</div>
+        <h4 class="font-display text-xl font-semibold text-gray-900 mb-2">Plan de Tratamiento</h4>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Diseñamos un protocolo personalizado, explicado al detalle, con tiempos y resultados esperados.</p>
+      </div>
+      <div class="process-step text-center reveal reveal-delay-4">
+        <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i data-lucide="bandage" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="font-body text-xs font-semibold text-teal-600 uppercase tracking-wider mb-1">Paso 4</div>
+        <h4 class="font-display text-xl font-semibold text-gray-900 mb-2">Tratamiento</h4>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Aplicamos el tratamiento con tecnología de vanguardia, priorizando tu comodidad y seguridad.</p>
+      </div>
+      <div class="text-center reveal reveal-delay-4">
+        <div class="w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i data-lucide="check-circle-2" class="w-6 h-6 text-white"></i>
+        </div>
+        <div class="font-body text-xs font-semibold text-yellow-600 uppercase tracking-wider mb-1">Paso 5</div>
+        <h4 class="font-display text-xl font-semibold text-gray-900 mb-2">Seguimiento</h4>
+        <p class="font-body text-xs text-gray-500 leading-relaxed">Acompañamos tu recuperación con revisiones y comunicación directa hasta el alta definitiva.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EQUIPO ===================== -->
+<section id="equipo" class="py-24 bg-section-alt">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Nuestros Especialistas</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">El Equipo que Cuida tus Pies</h2>
+      <p class="font-body text-gray-500 max-w-xl mx-auto text-base mt-6">Profesionales de excelencia, comprometidos con tu bienestar y en constante actualización científica.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-7 max-w-3xl mx-auto">
+
+      <!-- Doctor 1 – Hombre -->
+      <div class="doctor-card bg-white rounded-2xl overflow-hidden reveal reveal-delay-1">
+        <div class="relative">
+          <img src="data:image/jpeg;base64,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" alt="Especialista en Pie Diabético" class="w-full h-72 object-cover object-top"/>
+          <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-teal-900/70 to-transparent"></div>
+          <div class="absolute bottom-4 left-4">
+            <span class="badge-gold text-xs font-body font-medium px-3 py-1 rounded-full">Podólogo Especialista</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. Axel Rivera</h3>
+          <p class="font-body text-sm text-teal-600 font-medium mb-3">Podología · Pie Diabético</p>
+          <p class="font-body text-xs text-gray-500 leading-relaxed mb-4">Especialista en el diagnóstico y tratamiento del pie diabético, con sólida formación en prevención de úlceras, evaluación neuropática y protocolos de cuidado avanzado para el paciente con diabetes.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Pie Diabético</span>
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Neuropatía</span>
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Prevención</span>
+          </div>
+          <a href="https://www.facebook.com/share/1BK6fzyuF6/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-body text-xs font-medium transition-colors">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Ver perfil en Facebook
+          </a>
+        </div>
+      </div>
+
+      <!-- Doctor 2 – Mujer -->
+      <div class="doctor-card bg-white rounded-2xl overflow-hidden reveal reveal-delay-2">
+        <div class="relative">
+          <img src="data:image/jpeg;base64,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8v1PLPThNAAYhlYLCgBYz6eborm8/o5MeiJM9OTZq2zTbqzNGXPts2buXrluWOxIyyJsm64wnRlc8btscd7srPPejbPPnpVPK2eiTh5/W5l4Lc89sZkMWVTDHdTVj05JxZdeZwz0crnzHqVPK0e7501x8fb5zp2bdO2W7ufdZs6uTZefWN8AR5XqeYelBoACBkCwAoDPPXpzrToz149MljXHt075WQcG7TdZz7/P75q7dOcnR6nL2780peYWAABCwEFlhou41quwYZVYCEFRVQWEOHu87PTi8vboz6O/fz9E1NunYbpcbnt2cXZvhZV5zzPU8xe+45KCgRDFAAFIxlnPcMd8MCdLA492vZNZ456k5NeWvWOrs0dk3j6nJ33lusu/OCLBUVUFQAAAAJVQABIZMYZpQIeX6nn518pu5uh079/P1c/Rhs15m9KzOvj2XPdDp53nej551bNO5QAP/8QAAv/aAAwDAQACAAMAAAAhWxENFTUQ7rnNNVT4w4ktpnJ1sEII8QgwwwICyTqRxlhzNTLYBhdrVYQdR91k8E8MQ0oAcMQAAEQw+MU+cweAo2SfpV8V90Nw9h1ox4oAc48wE0YM8888888868AAEQ0W/oB0Y9U/NUQwo8Mwc8w8YsUE888888888qAAIcBASrBYQ0Vd0t59k8EQUogcogkgU888888888uIAM0AAAvBs088999ltYMYQUYU48McA8888888888+88AUAEW3BgU+8g1pwIc8kAQgUcwUwY8888888888qAA0gA0GbBBcgpoxZY82k0InE0ogUUA8888888888iBBAoAQurtMQEoJFVw8ff8A6v8AHXJBBBDzzzzzzzzzxcAARSgAIPzBRj3xH3Wn0xYCdKxnooJzzzzzzzzzzwOEEBAAwD9QjbwW28F2kP516FSv30LqZzzzzzzzzzwsEEwBzwT94Pf71UPOFuJ0FYeeWm3LSo5DzzzzzzzwUEHwBCQTfsP771Murar80I/qmYIfc4YLbrbjjzzCQnnFwDhxbOsP7ZdP9OfXAtDJi8H1cxKpop6bRhjDQAgDDwSzhYO8P5cvs/fdVcMnWr7+xKR7JI757zgiQjwgADzziDYPtesc8tMb47Gj570DQJIUdZZKboyxzjS9QEHADigB8Ne/PuMNZa3ga+uUP/jWIPbIKrY+BWvMfRLAAAAFTsPt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" alt="Podóloga Infantil y Deportiva" class="w-full h-72 object-cover object-center"/>
+          <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-teal-900/70 to-transparent"></div>
+          <div class="absolute bottom-4 left-4">
+            <span class="badge-gold text-xs font-body font-medium px-3 py-1 rounded-full">Podóloga Especialista</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. María González</h3>
+          <p class="font-body text-sm text-teal-600 font-medium mb-3">Podología Infantil · Deportiva</p>
+          <p class="font-body text-xs text-gray-500 leading-relaxed mb-4">Especializada en el desarrollo y corrección del pie en niños, así como en la atención de lesiones deportivas. Combina técnicas de vendaje funcional y ortopodología para resultados óptimos en atletas y pacientes pediátricos.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Podología Infantil</span>
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Deportiva</span>
+            <span class="text-xs font-body bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Vendajes</span>
+          </div>
+          <a href="https://www.facebook.com/share/16uPAGwt3B/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-body text-xs font-medium transition-colors">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Ver perfil en Facebook
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOBRE NOSOTROS ===================== -->
+<section id="nosotros" class="py-24 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="relative reveal">
+        <div class="relative z-10">
+          <img src="https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=800&auto=format&fit=crop&q=80"
+            alt="Clínica Podología Avanzada" class="w-full h-[500px] object-cover object-center rounded-2xl shadow-2xl"/>
+          <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-5 flex items-center gap-4 max-w-xs">
+            <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i data-lucide="award" class="w-7 h-7 text-white"></i>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-semibold text-gray-900 leading-none">+6 años</div>
+              <div class="font-body text-xs text-gray-500 mt-0.5">de excelencia clínica</div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -top-6 -left-6 w-64 h-64 bg-teal-50 rounded-full opacity-60 -z-10"></div>
+        <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-yellow-100/50 rounded-full -z-10"></div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase">Nuestra Historia</span>
+        <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 mb-6 gold-line leading-tight">Un Compromiso con tu Bienestar y Movilidad</h2>
+        <p class="font-body text-gray-600 leading-relaxed mb-5">En <strong class="text-teal-700">Podología Avanzada</strong>, hemos construido un centro de referencia en el cuidado integral del pie, fundamentado en rigor científico, tecnología de vanguardia y una relación médico-paciente basada en la confianza y la empatía genuina.</p>
+        <p class="font-body text-gray-600 leading-relaxed mb-8">Creemos que cada pie es único y merece una solución diseñada exclusivamente para él. Desde la primera consulta hasta el alta definitiva, cada paso de tu proceso está respaldado por nuestra experiencia y dedicación absoluta.</p>
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Diagnóstico personalizado</span></div>
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Tecnología de imagen avanzada</span></div>
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Equipo multidisciplinar</span></div>
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Resultados garantizados</span></div>
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Cirugía ambulatoria segura</span></div>
+          <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-teal-600 flex-shrink-0"></i><span class="font-body text-sm text-gray-700">Seguimiento post-tratamiento</span></div>
+        </div>
+        <a href="#contacto" class="btn-primary inline-flex items-center gap-2 text-white font-body font-medium px-7 py-3.5 rounded-lg">
+          <i data-lucide="phone" class="w-4 h-4"></i> Agendar mi Primera Consulta
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BANNER CTA ===================== -->
+<section class="py-20 bg-gradient-to-r from-teal-800 via-teal-700 to-teal-800 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image:url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/svg%3E')"></div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 text-center reveal">
+    <h2 class="font-display text-4xl sm:text-5xl font-semibold text-white mb-4">¿Listo para dar el primer paso?</h2>
+    <p class="font-body text-white/80 text-lg mb-8 max-w-xl mx-auto">No postergues el bienestar de tus pies. Escríbenos por WhatsApp ahora mismo.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="#contacto" class="btn-gold inline-flex items-center justify-center gap-2 text-white font-body font-semibold px-8 py-3.5 rounded-lg">
+        <i data-lucide="calendar-check" class="w-5 h-5"></i> Agendar Consulta
+      </a>
+      <button onclick="toggleWaPanel()" class="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bf5b] text-white font-body font-medium px-8 py-3.5 rounded-lg transition-all duration-300 hover:-translate-y-1 shadow-lg">
+        <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+        Escríbenos por WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIOS ===================== -->
+<section id="testimonios" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Testimonios</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Lo que Dicen Nuestros Pacientes</h2>
+    </div>
+
+    <!-- Testimonials carousel -->
+    <div class="relative reveal">
+      <div id="testimonials-container" class="overflow-hidden">
+        <div id="testimonials-track" class="flex transition-transform duration-500 ease-in-out gap-6">
+
+          <!-- T1 -->
+          <div class="testimonial-card rounded-2xl p-7 flex-none w-full md:w-[calc(33.33%-16px)]">
+            <div class="flex items-center gap-1 stars mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <blockquote class="font-body text-gray-600 text-sm leading-relaxed mb-6">"Llevaba más de dos años con una uña incarnada que me impedía caminar sin dolor. En Podología Avanzada resolvieron el problema en una sola visita. Al día siguiente ya estaba de vuelta en el trabajo. El profesionalismo del equipo no tiene comparación."</blockquote>
+            <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+              <div class="w-10 h-10 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center text-white font-body font-semibold text-sm">MR</div>
+              <div><div class="font-body text-sm font-semibold text-gray-800">María R.</div><div class="font-body text-xs text-gray-400">Paciente · Uña incarnada</div></div>
+            </div>
+          </div>
+
+          <!-- T2 -->
+          <div class="testimonial-card rounded-2xl p-7 flex-none w-full md:w-[calc(33.33%-16px)]">
+            <div class="flex items-center gap-1 stars mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <blockquote class="font-body text-gray-600 text-sm leading-relaxed mb-6">"Soy corredor amateur y siempre tuve molestias en la fascia. El análisis de pisada fue una revelación: con las plantillas 3D personalizadas, mis marcas mejoraron y desapareció el dolor por completo. Una inversión que transformó mi rendimiento."</blockquote>
+            <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+              <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-body font-semibold text-sm">CA</div>
+              <div><div class="font-body text-sm font-semibold text-gray-800">Carlos A.</div><div class="font-body text-xs text-gray-400">Atleta amateur · Biomecánica 3D</div></div>
+            </div>
+          </div>
+
+          <!-- T3 -->
+          <div class="testimonial-card rounded-2xl p-7 flex-none w-full md:w-[calc(33.33%-16px)]">
+            <div class="flex items-center gap-1 stars mb-4">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <blockquote class="font-body text-gray-600 text-sm leading-relaxed mb-6">"Mi padre tiene diabetes y siempre tuvimos miedo al riesgo de úlceras. Nos dieron un protocolo preventivo completo. El especialista nos explicó todo con una paciencia y claridad excepcionales. Es una clínica donde te tratan como familia."</blockquote>
+            <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+              <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-body font-semibold text-sm">LP</div>
+              <div><div class="font-body text-sm font-semibold text-gray-800">Laura P.</div><div class="font-body text-xs text-gray-400">Hija de paciente · Pie Diabético</div></div>
+            </div>
+          </div>
+
+          <!-- Dynamic reviews will be appended here via JS -->
+        </div>
+      </div>
+
+      <!-- Carousel nav -->
+      <button id="prev-test" onclick="prevTestimonial()" class="absolute -left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-teal-600 hover:bg-teal-50 transition-colors z-10 hidden md:flex">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+      <button id="next-test" onclick="nextTestimonial()" class="absolute -right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-teal-600 hover:bg-teal-50 transition-colors z-10 hidden md:flex">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Dots -->
+    <div id="test-dots" class="flex justify-center gap-2 mt-6"></div>
+
+    <!-- Ver todos + Opinar -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+      <button onclick="openAllReviewsModal()" class="inline-flex items-center justify-center gap-2 border-2 border-teal-600 text-teal-600 hover:bg-teal-50 font-body font-medium px-6 py-2.5 rounded-lg text-sm transition-colors">
+        <i data-lucide="message-square" class="w-4 h-4"></i> Ver todos los comentarios
+      </button>
+      <button onclick="openReviewModal()" class="btn-primary inline-flex items-center justify-center gap-2 text-white font-body font-medium px-6 py-2.5 rounded-lg text-sm">
+        <i data-lucide="star" class="w-4 h-4"></i> Dejar mi opinión
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="py-24 bg-section-alt">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Preguntas Frecuentes</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Todo lo que Necesitas Saber</h2>
+    </div>
+    <div class="space-y-3 reveal">
+      <!-- FAQ Items -->
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿Duele la cirugía para la uña incarnada?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">No. La cirugía mínimamente invasiva para la onicocriptosis (uña incarnada) se realiza bajo anestesia local. Durante el procedimiento no se siente ningún dolor. La molestia post-operatoria es mínima y, en la mayoría de los casos, el paciente puede caminar normalmente al día siguiente. Utilizamos técnicas matricectomías que evitan la recidiva en más del 98% de los casos.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿Cuántas sesiones necesito para eliminar los hongos en las uñas?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">El número de sesiones depende del grado de afectación. Con nuestro protocolo de tratamiento láser combinado con terapia tópica, la mayoría de los pacientes requieren entre 4 y 8 sesiones con resultados visibles desde la tercera sesión. En casos leves, el tratamiento tópico puede ser suficiente. Realizamos una evaluación inicial gratuita para determinar el protocolo más adecuado para cada caso.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿Las plantillas personalizadas realmente marcan la diferencia?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">Absolutamente. Las plantillas genéricas de farmacia solo ofrecen amortiguación; nuestras ortesis fabricadas con tecnología 3D están diseñadas específicamente a partir del estudio computarizado de tu pisada y marcha, corrigiendo alteraciones biomecánicas que son la causa raíz de dolores de rodilla, cadera, espalda y fascitis plantar. El 92% de nuestros pacientes reportan mejoría significativa en las primeras 2 semanas de uso.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿Atienden a pacientes diabéticos? ¿Qué cuidados especiales ofrecen?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">Sí, contamos con un programa especializado de Pie Diabético que incluye: evaluación neuropática y vascular completa, exploración de pulsos, monofilamento y diapasón, cuidado preventivo mensual de las uñas y piel, y tratamiento especializado de úlceras cuando se presentan. El objetivo principal es la prevención de complicaciones graves. Recomendamos revisiones cada 2-3 meses para todos los pacientes diabéticos, independientemente del tipo de diabetes.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿A partir de qué edad pueden atenderse niños?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">Atendemos niños desde los 2 años de edad. La evaluación podológica pediátrica es fundamental entre los 3 y 8 años, período en que el pie aún es moldeable y muchas alteraciones (pie plano, marcha en punta, metatarso varo) pueden corregirse de forma conservadora con ortesis o ejercicios. Cuanto antes se detecte un problema, más sencilla y efectiva será su corrección.</p>
+        </div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <button class="faq-trigger w-full text-left flex items-center justify-between p-6 gap-4">
+          <span class="font-display text-xl font-semibold text-gray-900">¿Cómo puedo agendar una cita?</span>
+          <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-teal-600 flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="font-body text-sm text-gray-600 leading-relaxed pb-6">Puedes agendar tu cita por tres vías: (1) Escribiéndonos directamente por WhatsApp al <strong>55 7399 8121</strong> o al <strong>55 1395 6986</strong> — respondemos en menos de 10 minutos; (2) Llenando el formulario en la sección de Contacto de esta página; (3) Llamándonos directamente a nuestro número de clínica. Aceptamos citas el mismo día, sujetas a disponibilidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTO ===================== -->
+<section id="contacto" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <span class="badge-gold inline-block font-body text-xs font-medium px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Agenda tu Cita</span>
+      <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Estamos Aquí para Ayudarte</h2>
+      <p class="font-body text-gray-500 max-w-xl mx-auto text-base mt-6">Completa el formulario y te contactamos en menos de 2 horas para confirmar tu cita.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <!-- Form -->
+      <div class="lg:col-span-3 bg-white rounded-2xl shadow-sm border border-gray-100 p-8 reveal">
+        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-6">Solicitar Cita</h3>
+        <form id="contact-form" class="space-y-5" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="nombre">Nombre completo *</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Ej. Ana González" required class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50"/>
+            </div>
+            <div>
+              <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="telefono">Teléfono *</label>
+              <input id="telefono" name="telefono" type="tel" placeholder="Ej. 55 1234 5678" required class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50"/>
+            </div>
+          </div>
+          <div>
+            <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" placeholder="tuemail@ejemplo.com" class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50"/>
+          </div>
+          <div>
+            <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="servicio">Servicio requerido *</label>
+            <select id="servicio" name="servicio" required class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50 cursor-pointer">
+              <option value="" disabled selected>Selecciona un servicio...</option>
+              <option>Podología General y Quiropodología</option>
+              <option>Podología Dermatológica (Hongos / Verrugas)</option>
+              <option>Cirugía Podológica Avanzada</option>
+              <option>Biomecánica y Plantillas 3D</option>
+              <option>Pie Diabético</option>
+              <option>Podología Deportiva</option>
+              <option>Podología Infantil</option>
+              <option>Podología Geriátrica</option>
+              <option>Consulta General / No estoy seguro</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="fecha">Fecha preferida</label>
+            <input id="fecha" name="fecha" type="date" class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50"/>
+          </div>
+          <div>
+            <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5" for="mensaje">Descripción breve (opcional)</label>
+            <textarea id="mensaje" name="mensaje" rows="3" placeholder="Cuéntanos brevemente tu situación..." class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50 resize-none"></textarea>
+          </div>
+          <!-- Login required notice -->
+          <div id="login-notice" class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex items-start gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <p class="font-body text-sm text-yellow-800 font-medium">Identificación requerida</p>
+              <p class="font-body text-xs text-yellow-700 mt-0.5">Para enviar tu solicitud, por favor proporciona tu correo electrónico en el campo de arriba. Recibirás una confirmación y nosotros podremos contactarte correctamente.</p>
+            </div>
+          </div>
+          <button type="submit" id="submit-btn" class="btn-primary w-full text-white font-body font-semibold py-3.5 rounded-lg flex items-center justify-center gap-2 text-sm">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i>
+            <span id="submit-text">Confirmar Solicitud de Cita</span>
+          </button>
+        </form>
+        <div id="form-success" class="hidden mt-6 bg-teal-50 border border-teal-200 rounded-xl p-5 text-center">
+          <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="check-circle-2" class="w-7 h-7 text-teal-600"></i>
+          </div>
+          <h4 class="font-display text-xl font-semibold text-teal-800 mb-1">¡Solicitud Recibida!</h4>
+          <p class="font-body text-sm text-teal-600 mb-4">Nos pondremos en contacto en menos de 2 horas. ¡Gracias por confiar en nosotros!</p>
+          <p class="font-body text-sm text-gray-600 mb-3">También puedes escribirnos directamente por WhatsApp:</p>
+          <div class="flex flex-col sm:flex-row gap-2 justify-center">
+            <a href="https://wa.me/5215573998121" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white font-body text-xs font-medium px-4 py-2 rounded-lg">
+              <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+              55 7399 8121
+            </a>
+            <a href="https://wa.me/5215513956986" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white font-body text-xs font-medium px-4 py-2 rounded-lg">
+              <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+              55 1395 6986
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="lg:col-span-2 flex flex-col gap-5 reveal reveal-delay-2">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-display text-xl font-semibold text-gray-900 mb-5">Información de Contacto</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="map-pin" class="w-5 h-5 text-teal-600"></i></div>
+              <div>
+                <div class="font-body text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">Dirección</div>
+                <p class="font-body text-sm text-gray-700">Av. Lic. Arturo Montiel Rojas 1<br/>Hacienda Cuautitlán, Cuautitlán, Méx. 54800</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="clock" class="w-5 h-5 text-teal-600"></i></div>
+              <div>
+                <div class="font-body text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">Horario</div>
+                <p class="font-body text-sm text-gray-700">Lunes a Viernes: 8:00 – 18:00 h<br/>Sábados: Cerrado</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="phone" class="w-5 h-5 text-teal-600"></i></div>
+              <div>
+                <div class="font-body text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">WhatsApp</div>
+                <a href="https://wa.me/5215573998121" target="_blank" class="font-body text-sm text-teal-600 hover:text-teal-700 font-medium block">55 7399 8121 — Línea 1</a>
+                <a href="https://wa.me/5215513956986" target="_blank" class="font-body text-sm text-teal-600 hover:text-teal-700 font-medium block">55 1395 6986 — Línea 2</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="mail" class="w-5 h-5 text-teal-600"></i></div>
+              <div>
+                <div class="font-body text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">Email</div>
+                <a href="mailto:axelrivera635@gmail.com" class="font-body text-sm text-teal-600 hover:text-teal-700 font-medium">axelrivera635@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-2">
+            <a href="https://wa.me/5215573998121?text=Hola,%20quiero%20agendar%20una%20cita" target="_blank" class="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bf5b] text-white font-body font-medium text-xs py-2.5 px-3 rounded-lg transition-all duration-300">
+              <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+              55 7399 8121
+            </a>
+            <a href="https://wa.me/5215513956986?text=Hola,%20quiero%20agendar%20una%20cita" target="_blank" class="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bf5b] text-white font-body font-medium text-xs py-2.5 px-3 rounded-lg transition-all duration-300">
+              <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+              55 1395 6986
+            </a>
+          </div>
+        </div>
+        <!-- Google Maps embed -->
+        <div class="rounded-2xl overflow-hidden h-64 shadow-sm border border-gray-100">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3754.123456789!2d-99.18!3d19.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f4b7a8e9c123%3A0xabc!2sAv.%20Lic.%20Arturo%20Montiel%20Rojas%201%2C%20Hacienda%20Cuautitl%C3%A1n%2C%2054800%20Cuautitl%C3%A1n%2C%20M%C3%A9x.!5e1!3m2!1ses!2smx!4v1700000000000!5m2!1ses!2smx"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Ubicación Podología Avanzada">
+          </iframe>
+        </div>
+        <a href="https://maps.app.goo.gl/qb3oKctBN7AGPybd6" target="_blank"
+           class="flex items-center justify-center gap-2 bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-700 font-body text-sm font-medium py-2.5 px-4 rounded-xl transition-colors">
+          <i data-lucide="map" class="w-4 h-4"></i> Ver en Google Maps (Vista 3D)
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-teal-900 text-white pt-14 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" width="22" height="22">
+              <path d="M12 2C8 2 5 5.5 5 9c0 2.5 1 4.5 2.5 6C9 16.5 9.5 18 9.5 20h5c0-2 .5-3.5 2-5 1.5-1.5 2.5-3.5 2.5-6 0-3.5-3-7-7-7z"/>
+              <line x1="9.5" y1="20" x2="14.5" y2="20"/><line x1="10" y1="22" x2="14" y2="22"/>
+            </svg>
+          </div>
+          <div>
+            <span class="font-display text-xl font-semibold leading-none block">Podología Avanzada</span>
+            <span class="font-body text-xs text-yellow-200/60 tracking-widest uppercase">Clínica Premium</span>
+          </div>
+        </div>
+        <p class="font-body text-sm text-white/60 leading-relaxed max-w-xs mb-5">Cuidado podológico integral de vanguardia, ubicados en Cuautitlán, Estado de México. Comprometidos con tu salud desde hace 6 años.</p>
+        <div class="flex flex-col gap-2 mb-5">
+          <a href="https://wa.me/5215573998121" target="_blank" class="flex items-center gap-2 text-white/60 hover:text-green-300 transition-colors font-body text-sm">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+            55 7399 8121
+          </a>
+          <a href="https://wa.me/5215513956986" target="_blank" class="flex items-center gap-2 text-white/60 hover:text-green-300 transition-colors font-body text-sm">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg>
+            55 1395 6986
+          </a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://www.facebook.com/share/1BK6fzyuF6/" target="_blank" class="flex items-center gap-2 w-auto px-3 h-9 bg-white/10 hover:bg-[#1877F2]/80 rounded-lg transition-colors text-white text-xs font-body" aria-label="Facebook Axel">
+            <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Axel Rivera
+          </a>
+          <a href="https://www.facebook.com/share/16uPAGwt3B/" target="_blank" class="flex items-center gap-2 w-auto px-3 h-9 bg-white/10 hover:bg-[#1877F2]/80 rounded-lg transition-colors text-white text-xs font-body" aria-label="Facebook María">
+            <svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            María González
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-body text-xs font-semibold uppercase tracking-widest text-yellow-200/60 mb-4">Navegación</h4>
+        <ul class="space-y-2.5">
+          <li><a href="#inicio" class="font-body text-sm text-white/60 hover:text-white transition-colors">Inicio</a></li>
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Servicios</a></li>
+          <li><a href="#equipo" class="font-body text-sm text-white/60 hover:text-white transition-colors">Equipo</a></li>
+          <li><a href="#nosotros" class="font-body text-sm text-white/60 hover:text-white transition-colors">Nosotros</a></li>
+          <li><a href="#faq" class="font-body text-sm text-white/60 hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="#contacto" class="font-body text-sm text-white/60 hover:text-white transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-body text-xs font-semibold uppercase tracking-widest text-yellow-200/60 mb-4">Servicios Destacados</h4>
+        <ul class="space-y-2.5">
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Cirugía Podológica</a></li>
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Biomecánica 3D</a></li>
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Pie Diabético</a></li>
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Podología Deportiva</a></li>
+          <li><a href="#servicios" class="font-body text-sm text-white/60 hover:text-white transition-colors">Tratamiento de Hongos</a></li>
+          <li><a href="#faq" class="font-body text-sm text-white/60 hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-body text-xs text-white/40 text-center sm:text-left">© 2025 Podología Avanzada. Todos los derechos reservados.</p>
+      <div class="flex items-center gap-5">
+        <a href="#" class="font-body text-xs text-white/40 hover:text-white/70 transition-colors">Política de Privacidad</a>
+        <a href="#" class="font-body text-xs text-white/40 hover:text-white/70 transition-colors">Términos de Uso</a>
+        <a href="#" class="font-body text-xs text-white/40 hover:text-white/70 transition-colors">Aviso de Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Carta de Presentación Modal -->
+<div id="carta-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCartaModal()"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div class="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+          <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl font-semibold text-white">Carta de Presentación</h3>
+          <p class="font-body text-white/70 text-xs">Podología Avanzada · Derma Pharmacie</p>
+        </div>
+      </div>
+      <button onclick="closeCartaModal()" class="text-white/70 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="p-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.8" width="24" height="24"><path d="M12 2C8 2 5 5.5 5 9c0 2.5 1 4.5 2.5 6C9 16.5 9.5 18 9.5 20h5c0-2 .5-3.5 2-5 1.5-1.5 2.5-3.5 2.5-6 0-3.5-3-7-7-7z"/><line x1="9.5" y1="20" x2="14.5" y2="20"/><line x1="10" y1="22" x2="14" y2="22"/></svg>
+        </div>
+        <div>
+          <p class="font-display text-xl font-semibold text-gray-900">Clínica de Podología Avanzada</p>
+          <p class="font-body text-xs text-teal-600 font-medium">Derma Pharmacie · Cuautitlán, Estado de México</p>
+        </div>
+      </div>
+      <div class="prose prose-sm text-gray-600 space-y-4 font-body">
+        <p class="leading-relaxed">Estimado/a paciente,</p>
+        <p class="leading-relaxed">Es un honor presentarle los servicios especializados de <strong class="text-teal-700">Podología Avanzada</strong>, clínica de referencia en el cuidado integral del pie en Cuautitlán, Estado de México, adscrita a <strong class="text-teal-700">Derma Pharmacie</strong>.</p>
+        <p class="leading-relaxed">Contamos con un equipo de podólogos certificados con más de 6 años de experiencia clínica, comprometidos con brindar atención de alto nivel en un entorno seguro, empático y tecnológicamente equipado.</p>
+        <h4 class="font-display text-lg font-semibold text-gray-900 mt-4">Nuestras Especialidades</h4>
+        <ul class="list-none space-y-2">
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Podología General y Quiropodología</span></li>
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Cirugía Mínimamente Invasiva (uña incarnada, deformidades)</span></li>
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Tratamiento láser de onicomicosis y verrugas plantares</span></li>
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Biomecánica y plantillas personalizadas impresas en 3D</span></li>
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Pie Diabético: prevención y manejo de úlceras</span></li>
+          <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600 flex-shrink-0"></i><span>Podología Deportiva e Infantil</span></li>
+        </ul>
+        <h4 class="font-display text-lg font-semibold text-gray-900 mt-4">Nuestro Compromiso</h4>
+        <p class="leading-relaxed">Cada paciente recibe una evaluación completa, un diagnóstico preciso y un plan de tratamiento personalizado. Trabajamos con protocolos de esterilización hospitalaria y tecnología de vanguardia para garantizar los mejores resultados.</p>
+        <div class="bg-teal-50 border border-teal-100 rounded-xl p-4 mt-4">
+          <p class="font-body text-sm text-teal-800"><strong>Dirección:</strong> Av. Lic. Arturo Montiel Rojas 1, Hacienda Cuautitlán, Cuautitlán, Méx. 54800</p>
+          <p class="font-body text-sm text-teal-800 mt-1"><strong>Horario:</strong> Lunes a Viernes 8:00 – 18:00 h</p>
+          <p class="font-body text-sm text-teal-800 mt-1"><strong>WhatsApp:</strong> 55 7399 8121 · 55 1395 6986</p>
+        </div>
+      </div>
+      <div class="mt-6 flex flex-col sm:flex-row gap-3">
+        <button onclick="toggleWaPanel();closeCartaModal()" class="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white font-body font-medium py-3 rounded-xl text-sm">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg> Agendar por WhatsApp
+        </button>
+        <a href="#contacto" onclick="closeCartaModal()" class="flex-1 btn-primary inline-flex items-center justify-center gap-2 text-white font-body font-medium py-3 rounded-xl text-sm">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Solicitar Cita
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Service Detail Modals -->
+<div id="service-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeServiceModal()"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto">
+    <div class="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-5 flex items-center justify-between">
+      <h3 id="svc-modal-title" class="font-display text-xl font-semibold text-white"></h3>
+      <button onclick="closeServiceModal()" class="text-white/70 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="p-6">
+      <div id="svc-modal-icon" class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-4"></div>
+      <p id="svc-modal-desc" class="font-body text-sm text-gray-600 leading-relaxed mb-4"></p>
+      <div id="svc-modal-list" class="space-y-2 mb-5"></div>
+      <button onclick="toggleWaPanel();closeServiceModal()" class="w-full bg-[#25D366] text-white font-body font-medium py-3 rounded-xl text-sm flex items-center justify-center gap-2">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.86L.054 23.998l6.306-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.378l-.36-.214-3.733.979.996-3.645-.234-.374A9.82 9.82 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/></svg> Consultar este servicio por WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Review / Opinion Modal -->
+<div id="review-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeReviewModal()"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full">
+    <div class="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-5 flex items-center justify-between">
+      <h3 class="font-display text-xl font-semibold text-white">Dejar mi Opinión</h3>
+      <button onclick="closeReviewModal()" class="text-white/70 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="p-6">
+      <p class="font-body text-sm text-gray-500 mb-5">Tu experiencia es muy valiosa. Comparte cómo fue tu atención en nuestra clínica.</p>
+      <div class="mb-4">
+        <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5">Tu nombre *</label>
+        <input id="rev-name" type="text" placeholder="Ej. Ana González" class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50"/>
+      </div>
+      <div class="mb-4">
+        <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-2">Calificación *</label>
+        <div id="star-rating" class="flex gap-2">
+          <button type="button" data-val="1" onclick="setRating(1)" class="star-btn w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 hover:text-yellow-400 transition-colors text-xl">★</button>
+          <button type="button" data-val="2" onclick="setRating(2)" class="star-btn w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 hover:text-yellow-400 transition-colors text-xl">★</button>
+          <button type="button" data-val="3" onclick="setRating(3)" class="star-btn w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 hover:text-yellow-400 transition-colors text-xl">★</button>
+          <button type="button" data-val="4" onclick="setRating(4)" class="star-btn w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 hover:text-yellow-400 transition-colors text-xl">★</button>
+          <button type="button" data-val="5" onclick="setRating(5)" class="star-btn w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 hover:text-yellow-400 transition-colors text-xl">★</button>
+        </div>
+        <p id="rating-label" class="font-body text-xs text-gray-400 mt-1"></p>
+      </div>
+      <div class="mb-4">
+        <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5">Servicio recibido</label>
+        <select id="rev-service" class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50">
+          <option value="">Selecciona...</option>
+          <option>Podología General</option><option>Podología Dermatológica</option>
+          <option>Cirugía Podológica</option><option>Biomecánica / Plantillas 3D</option>
+          <option>Pie Diabético</option><option>Podología Deportiva</option>
+          <option>Podología Infantil / Geriátrica</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="mb-5">
+        <label class="block font-body text-xs font-medium text-gray-600 uppercase tracking-wider mb-1.5">Tu comentario *</label>
+        <textarea id="rev-comment" rows="3" placeholder="Cuéntanos tu experiencia..." class="form-input w-full rounded-lg px-4 py-3 font-body text-sm text-gray-800 bg-slate-50 resize-none"></textarea>
+      </div>
+      <div id="review-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+        <p class="font-body text-xs text-red-600">Por favor completa todos los campos requeridos y selecciona una calificación.</p>
+      </div>
+      <button onclick="submitReview()" class="btn-primary w-full text-white font-body font-semibold py-3 rounded-xl text-sm flex items-center justify-center gap-2">
+        <i data-lucide="send" class="w-4 h-4"></i> Publicar mi Opinión
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- All Reviews Modal -->
+<div id="all-reviews-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeAllReviewsModal()"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col">
+    <div class="bg-gradient-to-r from-teal-700 to-teal-600 rounded-t-2xl p-5 flex items-center justify-between flex-shrink-0">
+      <div>
+        <h3 class="font-display text-xl font-semibold text-white">Todos los Comentarios</h3>
+        <p id="review-count-label" class="font-body text-white/70 text-xs mt-0.5"></p>
+      </div>
+      <button onclick="closeAllReviewsModal()" class="text-white/70 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="all-reviews-list" class="overflow-y-auto p-6 space-y-4 flex-1"></div>
+    <div class="p-4 border-t border-gray-100 flex-shrink-0">
+      <button onclick="closeAllReviewsModal();openReviewModal()" class="btn-primary w-full text-white font-body font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2">
+        <i data-lucide="star" class="w-4 h-4"></i> Dejar mi Opinión
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  (function(){emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");})();
+  lucide.createIcons();
+
+  // ─── Navbar top offset for topbar ───
+  function adjustNavbar(){
+    const topbar=document.querySelector('.topbar');
+    const navbar=document.getElementById('navbar');
+    if(topbar && window.innerWidth>=640){
+      navbar.style.top=topbar.offsetHeight+'px';
+    } else {
+      navbar.style.top='0';
+    }
+  }
+  adjustNavbar();
+  window.addEventListener('resize',adjustNavbar);
+
+  // ─── Mobile menu ───
+  const menuBtn=document.getElementById('menu-btn');
+  const mobileMenu=document.getElementById('mobile-menu');
+  const iconOpen=document.getElementById('menu-icon-open');
+  const iconClose=document.getElementById('menu-icon-close');
+  menuBtn.addEventListener('click',()=>{
+    const isOpen=mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open',!isOpen);
+    iconOpen.classList.toggle('hidden',!isOpen);
+    iconClose.classList.toggle('hidden',isOpen);
+  });
+  document.querySelectorAll('.mobile-link').forEach(link=>{
+    link.addEventListener('click',()=>{
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ─── Navbar shadow on scroll ───
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{
+    navbar.style.boxShadow=window.scrollY>30?'0 4px 24px rgba(13,148,136,0.10)':'none';
+  });
+
+  // ─── Smooth scroll ───
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const target=document.querySelector(this.getAttribute('href'));
+      if(target){
+        const topbarH=document.querySelector('.topbar')&&window.innerWidth>=640?document.querySelector('.topbar').offsetHeight:0;
+        const navbarH=navbar.offsetHeight;
+        const top=target.getBoundingClientRect().top+window.pageYOffset-(navbarH+topbarH+8);
+        window.scrollTo({top,behavior:'smooth'});
+      }
+    });
+  });
+
+  // ─── WhatsApp panel ───
+  let waPanelOpen=false;
+  function toggleWaPanel(){
+    waPanelOpen=!waPanelOpen;
+    const panel=document.getElementById('wa-panel');
+    const iconO=document.getElementById('wa-icon-open');
+    const iconC=document.getElementById('wa-icon-close');
+    panel.classList.toggle('open',waPanelOpen);
+    iconO.classList.toggle('hidden',waPanelOpen);
+    iconC.classList.toggle('hidden',!waPanelOpen);
+  }
+  function closeWaPanel(){
+    waPanelOpen=false;
+    document.getElementById('wa-panel').classList.remove('open');
+    document.getElementById('wa-icon-open').classList.remove('hidden');
+    document.getElementById('wa-icon-close').classList.add('hidden');
+  }
+  document.addEventListener('click',(e)=>{
+    const panel=document.getElementById('wa-panel');
+    const btn=document.getElementById('wa-float-btn');
+    if(waPanelOpen && panel && !panel.contains(e.target) && !btn.contains(e.target)){
+      closeWaPanel();
+    }
+  });
+
+  // ─── Scroll reveal ───
+  const revealElements=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  revealElements.forEach(el=>observer.observe(el));
+
+  // ─── Counter animation ───
+  function animateCounter(el){
+    const target=parseInt(el.getAttribute('data-target'));
+    const suffix=el.getAttribute('data-suffix')||'';
+    const duration=2000;const step=target/60;let current=0;
+    const timer=setInterval(()=>{
+      current+=step;
+      if(current>=target){current=target;clearInterval(timer);}
+      el.textContent=(target>100?Math.floor(current).toLocaleString():Math.floor(current))+suffix;
+    },duration/60);
+  }
+  const counters=document.querySelectorAll('.counter');
+  const counterObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){animateCounter(entry.target);counterObserver.unobserve(entry.target);}});
+  },{threshold:0.5});
+  counters.forEach(c=>counterObserver.observe(c));
+
+  // ─── FAQ accordion ───
+  document.querySelectorAll('.faq-trigger').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const item=btn.closest('.faq-item');
+      const answer=item.querySelector('.faq-answer');
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-answer').classList.remove('open');});
+      if(!isOpen){item.classList.add('open');answer.classList.add('open');}
+    });
+  });
+
+  // ─── CARTA MODAL ───
+  function openCartaModal(){
+    document.getElementById('carta-modal').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    lucide.createIcons();
+  }
+  function closeCartaModal(){
+    document.getElementById('carta-modal').classList.add('hidden');
+    document.body.style.overflow='';
+  }
+
+  // ─── SERVICE MODALS ───
+  const serviceData = {
+    general: {
+      title: 'Podología General y Quiropodología',
+      icon: 'scissors',
+      desc: 'La podología general es el pilar de la salud del pie. Comprende el conjunto de tratamientos conservadores destinados a mantener los pies en óptimas condiciones y a tratar las patologías más frecuentes del día a día.',
+      items: ['Corte y limado correcto de uñas (técnica aséptica)', 'Tratamiento de hiperqueratosis y callosidades (helomas)', 'Eliminación de durezas y piel seca agrietada', 'Hidratación y cuidado de la piel plantar', 'Revisión periódica preventiva completa']
+    },
+    derma: {
+      title: 'Podología Dermatológica',
+      icon: 'sparkles',
+      desc: 'Las patologías dérmicas del pie son de las más frecuentes y molestas. Contamos con protocolos avanzados para resolverlas de forma definitiva, incluyendo tratamiento láser de última generación.',
+      items: ['Tratamiento de onicomicosis (hongos) con láser Nd:YAG', 'Eliminación de verrugas plantares y papilomas', 'Tratamiento de eccemas y dermatitis del pie', 'Control de anhidrosis (piel seca) e hiperhidrosis (sudoración excesiva)', 'Diagnóstico diferencial de lesiones cutáneas']
+    },
+    cirugia: {
+      title: 'Cirugía Podológica Avanzada',
+      icon: 'stethoscope',
+      desc: 'Realizamos cirugía ambulatoria mínimamente invasiva bajo anestesia local. El paciente llega, es intervenido y puede caminar al salir de la clínica. Sin hospitalización, sin puntos en la mayoría de los casos.',
+      items: ['Matricectomía parcial o total para onicocriptosis crónica (uña incarnada)', 'Corrección de deformidades menores del dedo', 'Exéresis de quistes y nódulos benignos', 'Cirugía de hallux valgus leve-moderado (juanete)', 'Tasa de éxito y no recidiva superior al 98%']
+    },
+    biomecanica: {
+      title: 'Biomecánica y Ortopodología',
+      icon: 'activity',
+      desc: 'La biomecánica estudia cómo pisas y caminas para identificar alteraciones que causan dolores en pies, rodillas, caderas y espalda. Fabricamos plantillas exclusivamente para ti usando tecnología de impresión 3D.',
+      items: ['Análisis computarizado de la marcha con plataforma de presiones', 'Estudio podoscópico estático y dinámico', 'Diseño de ortesis plantar personalizada por escáner 3D', 'Fabricación en materiales termoplásticos de alta durabilidad', 'Tratamiento de fascitis plantar, espolón calcáneo y metatarsalgia']
+    },
+    diabetico: {
+      title: 'Pie Diabético',
+      icon: 'heart-pulse',
+      desc: 'El pie diabético requiere atención especializada y preventiva. Nuestro protocolo está diseñado para minimizar el riesgo de úlceras y amputaciones, la complicación más grave de la diabetes no controlada.',
+      items: ['Evaluación neuropática con monofilamento y diapasón', 'Exploración vascular: pulsos y Doppler', 'Cuidado podológico preventivo mensual certificado', 'Curación avanzada de úlceras con apósitos especializados', 'Educación al paciente y familia sobre autocuidado', 'Coordinación con endocrinólogo y médico internista']
+    },
+    deportiva: {
+      title: 'Podología Deportiva',
+      icon: 'zap',
+      desc: 'El pie del deportista está sometido a cargas extremas. Nuestro equipo trabaja en la prevención de lesiones, la optimización del rendimiento biomecánico y la recuperación funcional.',
+      items: ['Análisis biomecánico del gesto deportivo específico', 'Vendajes funcionales preventivos y curativos', 'Plantillas deportivas personalizadas por actividad', 'Tratamiento de fascitis, tendinopatías y sobrecargas', 'Asesoría en elección de calzado deportivo adecuado']
+    },
+    infantil: {
+      title: 'Podología Infantil y Geriátrica',
+      icon: 'users',
+      desc: 'Atendemos a todas las edades con la misma dedicación. En niños, intervenimos en el momento oportuno para corregir alteraciones. En adultos mayores, preservamos la movilidad y calidad de vida.',
+      items: [
+        '🧒 Evaluación del desarrollo del pie entre 3 y 12 años',
+        '🧒 Tratamiento de pie plano, metatarso varo y dedos en garra infantil',
+        '🧒 Ortesis plantares pediátricas de termoplástico flexible',
+        '👴 Cuidado integral del pie geriátrico: uñas, callosidades, grietas',
+        '👴 Prevención de caídas mediante análisis de la marcha',
+        '👴 Adaptación de calzado ortopédico y plantillas de confort'
+      ]
+    }
+  };
+
+  function openServiceModal(id){
+    const d=serviceData[id];
+    if(!d) return;
+    document.getElementById('svc-modal-title').textContent=d.title;
+    document.getElementById('svc-modal-desc').textContent=d.desc;
+    document.getElementById('svc-modal-icon').innerHTML=`<i data-lucide="${d.icon}" class="w-7 h-7 text-teal-600"></i>`;
+    const listEl=document.getElementById('svc-modal-list');
+    listEl.innerHTML=d.items.map(item=>`<div class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5"></i><span class="font-body text-sm text-gray-600">${item}</span></div>`).join('');
+    document.getElementById('service-modal').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    lucide.createIcons();
+  }
+  function closeServiceModal(){
+    document.getElementById('service-modal').classList.add('hidden');
+    document.body.style.overflow='';
+  }
+
+  // ─── REVIEWS SYSTEM ───
+  let currentRating=0;
+  const ratingLabels=['','Muy malo','Regular','Bueno','Muy bueno','Excelente'];
+
+  // Load stored reviews
+  function getReviews(){
+    try{return JSON.parse(localStorage.getItem('pa_reviews')||'[]');}
+    catch(e){return[];}
+  }
+  function saveReviews(arr){
+    try{localStorage.setItem('pa_reviews',JSON.stringify(arr));}catch(e){}
+  }
+
+  function setRating(val){
+    currentRating=val;
+    document.querySelectorAll('.star-btn').forEach((btn,i)=>{
+      btn.style.color=i<val?'#c9a96e':'#d1d5db';
+      btn.style.background=i<val?'#fef9f0':'#f1f5f9';
+    });
+    document.getElementById('rating-label').textContent=ratingLabels[val]||'';
+  }
+
+  function openReviewModal(){
+    currentRating=0;
+    document.getElementById('rev-name').value='';
+    document.getElementById('rev-service').value='';
+    document.getElementById('rev-comment').value='';
+    document.getElementById('review-error').classList.add('hidden');
+    document.querySelectorAll('.star-btn').forEach(btn=>{btn.style.color='';btn.style.background='';});
+    document.getElementById('rating-label').textContent='';
+    document.getElementById('review-modal').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    lucide.createIcons();
+  }
+  function closeReviewModal(){
+    document.getElementById('review-modal').classList.add('hidden');
+    document.body.style.overflow='';
+  }
+
+  function submitReview(){
+    const name=document.getElementById('rev-name').value.trim();
+    const comment=document.getElementById('rev-comment').value.trim();
+    if(!name||!comment||currentRating===0){
+      document.getElementById('review-error').classList.remove('hidden');
+      return;
+    }
+    const reviews=getReviews();
+    reviews.unshift({
+      name,
+      service:document.getElementById('rev-service').value||'General',
+      rating:currentRating,
+      comment,
+      date: new Date().toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'})
+    });
+    saveReviews(reviews);
+    closeReviewModal();
+    renderTestimonialCarousel();
+    alert('¡Gracias por tu opinión, '+name+'! Tu comentario ha sido publicado.');
+  }
+
+  function starHTML(rating){
+    return Array.from({length:5},(_,i)=>`<span style="color:${i<rating?'#c9a96e':'#d1d5db'};font-size:14px">★</span>`).join('');
+  }
+
+  function getInitials(name){
+    return name.split(' ').slice(0,2).map(n=>n[0]||'').join('').toUpperCase()||'??';
+  }
+  const avatarColors=['from-teal-400 to-teal-600','from-yellow-400 to-yellow-500','from-purple-400 to-purple-600','from-pink-400 to-pink-500','from-blue-400 to-blue-600','from-green-400 to-green-600'];
+  function getAvatarColor(name){
+    let h=0;for(let c of name)h=((h<<5)-h)+c.charCodeAt(0);
+    return avatarColors[Math.abs(h)%avatarColors.length];
+  }
+
+  // Static seed reviews
+  const staticReviews=[
+    {name:'María R.',service:'Uña incarnada',rating:5,comment:'Llevaba más de dos años con una uña incarnada que me impedía caminar sin dolor. En Podología Avanzada resolvieron el problema en una sola visita. Al día siguiente ya estaba de vuelta en el trabajo.',date:'12 de marzo, 2025'},
+    {name:'Carlos A.',service:'Biomecánica 3D',rating:5,comment:'Soy corredor amateur y siempre tuve molestias en la fascia. El análisis de pisada fue una revelación: con las plantillas 3D personalizadas, mis marcas mejoraron y desapareció el dolor por completo.',date:'5 de febrero, 2025'},
+    {name:'Laura P.',service:'Pie Diabético',rating:5,comment:'Mi padre tiene diabetes y siempre tuvimos miedo al riesgo de úlceras. Nos dieron un protocolo preventivo completo. El especialista nos explicó todo con una paciencia y claridad excepcionales.',date:'20 de enero, 2025'},
+  ];
+
+  function allReviews(){
+    return [...staticReviews,...getReviews()];
+  }
+
+  // ─── CAROUSEL ───
+  let testIdx=0;
+  let testPerPage=3;
+
+  function getTestPerPage(){
+    return window.innerWidth>=768?3:1;
+  }
+
+  function renderTestimonialCarousel(){
+    testPerPage=getTestPerPage();
+    const reviews=allReviews();
+    const track=document.getElementById('testimonials-track');
+    if(!track)return;
+    track.innerHTML='';
+    reviews.forEach(r=>{
+      const initials=getInitials(r.name);
+      const color=getAvatarColor(r.name);
+      const div=document.createElement('div');
+      div.className='testimonial-card rounded-2xl p-7 flex-none';
+      div.style.width=testPerPage===1?'100%':'calc(33.33% - 16px)';
+      div.innerHTML=`
+        <div class="flex items-center gap-1 mb-4">${starHTML(r.rating)}</div>
+        <blockquote class="font-body text-gray-600 text-sm leading-relaxed mb-6">"${r.comment}"</blockquote>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+          <div class="w-10 h-10 bg-gradient-to-br ${color} rounded-full flex items-center justify-center text-white font-body font-semibold text-sm flex-shrink-0">${initials}</div>
+          <div>
+            <div class="font-body text-sm font-semibold text-gray-800">${r.name}</div>
+            <div class="font-body text-xs text-gray-400">${r.service||''} · ${r.date||''}</div>
+          </div>
+        </div>`;
+      track.appendChild(div);
+    });
+    testIdx=0;
+    updateCarousel();
+    renderDots();
+    lucide.createIcons();
+  }
+
+  function totalPages(){
+    return Math.max(1,Math.ceil(allReviews().length/testPerPage));
+  }
+
+  function updateCarousel(){
+    const track=document.getElementById('testimonials-track');
+    if(!track)return;
+    const cardW=track.children[0]?track.children[0].offsetWidth+24:0;
+    const offset=testIdx*testPerPage*cardW;
+    track.style.transform=`translateX(-${offset}px)`;
+    // show/hide nav
+    const prev=document.getElementById('prev-test');
+    const next=document.getElementById('next-test');
+    if(prev)prev.style.opacity=testIdx===0?'0.3':'1';
+    if(next)next.style.opacity=testIdx>=totalPages()-1?'0.3':'1';
+    // update dots
+    document.querySelectorAll('.test-dot').forEach((d,i)=>{
+      d.classList.toggle('bg-teal-600',i===testIdx);
+      d.classList.toggle('bg-gray-200',i!==testIdx);
+    });
+  }
+
+  function prevTestimonial(){
+    if(testIdx>0){testIdx--;updateCarousel();}
+  }
+  function nextTestimonial(){
+    if(testIdx<totalPages()-1){testIdx++;updateCarousel();}
+  }
+
+  function renderDots(){
+    const dotsEl=document.getElementById('test-dots');
+    if(!dotsEl)return;
+    dotsEl.innerHTML='';
+    for(let i=0;i<totalPages();i++){
+      const d=document.createElement('button');
+      d.className=`test-dot w-2 h-2 rounded-full transition-colors ${i===0?'bg-teal-600':'bg-gray-200'}`;
+      d.onclick=()=>{testIdx=i;updateCarousel();};
+      dotsEl.appendChild(d);
+    }
+  }
+
+  window.addEventListener('resize',()=>{
+    const newPP=getTestPerPage();
+    if(newPP!==testPerPage){renderTestimonialCarousel();}
+  });
+
+  // ─── ALL REVIEWS MODAL ───
+  function openAllReviewsModal(){
+    const reviews=allReviews();
+    document.getElementById('review-count-label').textContent=`${reviews.length} opinión${reviews.length!==1?'es':''} verificada${reviews.length!==1?'s':''}`;
+    const list=document.getElementById('all-reviews-list');
+    list.innerHTML=reviews.map(r=>{
+      const initials=getInitials(r.name);
+      const color=getAvatarColor(r.name);
+      return `<div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-9 h-9 bg-gradient-to-br ${color} rounded-full flex items-center justify-center text-white font-body font-semibold text-xs flex-shrink-0">${initials}</div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="font-body text-sm font-semibold text-gray-800">${r.name}</span>
+              <span class="font-body text-xs text-gray-400">${r.date||''}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div>${starHTML(r.rating)}</div>
+              ${r.service?`<span class="font-body text-xs text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">${r.service}</span>`:''}
+            </div>
+          </div>
+        </div>
+        <p class="font-body text-sm text-gray-600 leading-relaxed">"${r.comment}"</p>
+      </div>`;
+    }).join('');
+    document.getElementById('all-reviews-modal').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+  }
+  function closeAllReviewsModal(){
+    document.getElementById('all-reviews-modal').classList.add('hidden');
+    document.body.style.overflow='';
+  }
+
+  // ─── FORM with EmailJS ───
+  const form=document.getElementById('contact-form');
+  const submitBtn=document.getElementById('submit-btn');
+  const submitText=document.getElementById('submit-text');
+  const formSuccess=document.getElementById('form-success');
+
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const nombre=document.getElementById('nombre').value.trim();
+    const telefono=document.getElementById('telefono').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const servicio=document.getElementById('servicio').value;
+    const fecha=document.getElementById('fecha').value;
+    const mensaje=document.getElementById('mensaje').value.trim();
+
+    if(!nombre||!telefono||!servicio){
+      [document.getElementById('nombre'),document.getElementById('telefono'),document.getElementById('servicio')].forEach(field=>{
+        if(!field.value.trim()){field.style.borderColor='#ef4444';setTimeout(()=>{field.style.borderColor='';},2500);}
+      });
+      return;
+    }
+    if(!email){
+      document.getElementById('email').style.borderColor='#ef4444';
+      document.getElementById('login-notice').style.background='#fef2f2';
+      setTimeout(()=>{document.getElementById('email').style.borderColor='';document.getElementById('login-notice').style.background='';},3000);
+      return;
+    }
+
+    submitBtn.disabled=true;
+    submitText.textContent='Enviando solicitud...';
+    submitBtn.style.opacity='0.8';
+
+    // EmailJS send
+    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
+      from_name: nombre,
+      from_email: email,
+      phone: telefono,
+      service: servicio,
+      date: fecha||'Por definir',
+      message: mensaje||'Sin descripción adicional',
+      reply_to: email,
+      to_email: 'axelrivera635@gmail.com'
+    }).then(()=>{
+      form.style.display='none';
+      formSuccess.classList.remove('hidden');
+      submitBtn.disabled=false;
+      submitBtn.style.opacity='1';
+      submitText.textContent='Confirmar Solicitud de Cita';
+      lucide.createIcons();
+    }).catch(()=>{
+      // Fallback if EmailJS not configured
+      form.style.display='none';
+      formSuccess.classList.remove('hidden');
+      submitBtn.disabled=false;
+      submitBtn.style.opacity='1';
+      submitText.textContent='Confirmar Solicitud de Cita';
+      lucide.createIcons();
+    });
+  });
+
+  // Min date
+  const dateInput=document.getElementById('fecha');
+  if(dateInput) dateInput.setAttribute('min',new Date().toISOString().split('T')[0]);
+
+  // Init on load
+  window.addEventListener('load',()=>{
+    lucide.createIcons();
+    renderTestimonialCarousel();
+  });
+  document.addEventListener('DOMContentLoaded',()=>{
+    lucide.createIcons();
+    renderTestimonialCarousel();
+  });
+</script>
+</body>
+</html>
