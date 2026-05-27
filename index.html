@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Podología Avanzada | Clínica Premium de Podología</title>
   <meta name="description" content="Clínica de podología premium con tecnología avanzada, especialistas certificados y atención personalizada. De la prevención a la cirugía, cuidamos cada uno de tus pasos." />
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Podología Avanzada" />
+  <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=192&h=192&fit=crop&auto=format" />
+  <!-- OG -->
+  <meta property="og:title" content="Podología Avanzada | Clínica Premium" />
+  <meta property="og:description" content="Cuidado podológico integral de vanguardia en Cuautitlán, Estado de México." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&auto=format" />
+  <meta property="og:type" content="website" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,8 +57,8 @@
     .service-card:hover{transform:translateY(-6px);border-color:rgba(201,169,110,0.4);box-shadow:0 24px 48px rgba(13,148,136,0.12),0 0 0 1px rgba(201,169,110,0.2);}
     .service-card:hover .service-icon{background:linear-gradient(135deg,#0d9488,#0f766e);color:white;}
 
-    .value-card{transition:all 0.3s ease;border-top:3px solid transparent;}
-    .value-card:hover{border-top-color:#c9a96e;transform:translateY(-4px);}
+    .value-card{transition:all 0.35s cubic-bezier(0.4,0,0.2,1);}
+    .value-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.18);}
 
     .testimonial-card{background:white;border:1px solid rgba(13,148,136,0.08);transition:all 0.3s ease;}
     .testimonial-card:hover{box-shadow:0 20px 40px rgba(13,148,136,0.1);}
@@ -113,22 +125,101 @@
     /* Pulse dot */
     @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
     .pulse-dot{animation:pulse-dot 2s ease-in-out infinite;}
+
+    /* ── Admin badge ── */
+    .admin-delete-btn{opacity:0;transition:opacity 0.2s ease;}
+    .review-item:hover .admin-delete-btn{opacity:1;}
+
+    /* ── Floating reading progress ── */
+    #reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#0d9488,#c9a96e);z-index:9999;transition:width 0.1s linear;width:0%;}
+
+    /* ── Tooltip ── */
+    .tooltip{position:relative;}
+    .tooltip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1f2937;color:white;font-size:11px;padding:4px 10px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s;}
+    .tooltip:hover::after{opacity:1;}
+
+    /* ── Ripple effect ── */
+    .ripple-btn{position:relative;overflow:hidden;}
+    .ripple-btn::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.4);transform:scale(0);animation:none;pointer-events:none;}
+    @keyframes ripple-anim{to{transform:scale(4);opacity:0;}}
+
+    /* ── Floating label inputs ── */
+    .float-label-wrap{position:relative;}
+    .float-label-wrap input:focus~label,
+    .float-label-wrap input:not(:placeholder-shown)~label,
+    .float-label-wrap textarea:focus~label,
+    .float-label-wrap textarea:not(:placeholder-shown)~label,
+    .float-label-wrap select:focus~label,
+    .float-label-wrap select:not([value=''])~label{transform:translateY(-22px) scale(0.8);color:#0d9488;}
+    .float-label-wrap label{position:absolute;top:14px;left:16px;font-size:13px;color:#9ca3af;pointer-events:none;transform-origin:left;transition:all 0.2s ease;}
+
+    /* ── Scroll to top btn ── */
+    #scroll-top{position:fixed;bottom:100px;left:20px;z-index:997;background:white;border:1.5px solid #e2e8f0;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:all 0.3s ease;opacity:0;transform:translateY(10px);cursor:pointer;}
+    #scroll-top.visible{opacity:1;transform:translateY(0);}
+    #scroll-top:hover{background:#0d9488;border-color:#0d9488;color:white;}
+
+    /* ── Admin modal ── */
+    .admin-modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);}
+
+    /* ── Notification toast ── */
+    #toast-container{position:fixed;top:80px;right:20px;z-index:9000;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+    .toast{background:white;border-radius:12px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:flex;align-items:center;gap:10px;transform:translateX(120%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);pointer-events:all;border-left:4px solid #0d9488;min-width:240px;}
+    .toast.show{transform:translateX(0);}
+    .toast.error{border-left-color:#ef4444;}
+    .toast.success{border-left-color:#22c55e;}
+    .toast.warning{border-left-color:#f59e0b;}
+
+    /* ── Enhanced mobile ── */
+    @media(max-width:640px){
+      .doctor-card{max-width:340px;margin:0 auto;}
+      .process-step:not(:last-child)::after{display:none;}
+      #wa-panel{width:calc(100vw - 40px);right:20px;}
+    }
+
+    /* ── Gradient text ── */
+    .gradient-text{background:linear-gradient(135deg,#0d9488,#c9a96e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* ── Shimmer loading ── */
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    .shimmer{background:linear-gradient(90deg,#f0fdfa 25%,#ccfbf1 50%,#f0fdfa 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+
+    /* ── Animated border ── */
+    @keyframes border-rotate{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .animated-border{background:linear-gradient(270deg,#0d9488,#c9a96e,#0f766e,#e8d5b0);background-size:400% 400%;animation:border-rotate 4s ease infinite;}
+
+    /* ── Pulse ring ── */
+    @keyframes pulse-ring{0%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(13,148,136,0.5)}70%{transform:scale(1);box-shadow:0 0 0 12px rgba(13,148,136,0)}100%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(13,148,136,0)}}
+    .pulse-ring{animation:pulse-ring 2.5s ease-in-out infinite;}
+
+    /* ── Tilt card ── */
+    .tilt{transform-style:preserve-3d;transition:transform 0.2s ease;}
   </style>
 </head>
 
 <body class="bg-white text-gray-800 antialiased">
 
+<!-- Reading progress bar -->
+<div id="reading-progress"></div>
+
+<!-- Scroll to top -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
+  <i data-lucide="arrow-up" class="w-4 h-4 text-teal-600" id="scroll-top-icon"></i>
+</button>
+
+<!-- Toast notifications -->
+<div id="toast-container"></div>
+
 <!-- ===================== TOP BAR ===================== -->
 <div class="topbar text-white text-xs font-body py-2 px-4 hidden sm:block">
   <div class="max-w-7xl mx-auto flex items-center justify-between">
     <div class="flex items-center gap-6">
-      <span class="flex items-center gap-1.5">
+      <span id="live-clock" class="flex items-center gap-1.5">
         <span class="pulse-dot w-1.5 h-1.5 bg-green-300 rounded-full inline-block"></span>
-        Aceptamos citas en el día
+        Abierto ahora
       </span>
       <span class="flex items-center gap-1.5">
         <i data-lucide="clock" class="w-3 h-3"></i>
-        Lun–Vie 8:00–18:00 h
+        Lun–Vie 8:00 a.m.–6:00 p.m.
       </span>
     </div>
     <div class="flex items-center gap-5">
@@ -325,25 +416,60 @@
       <h2 class="font-display text-4xl sm:text-5xl font-semibold text-gray-900 gold-line-center">Excelencia que Marca la Diferencia</h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-1">
-        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="cpu" class="w-7 h-7 text-teal-600"></i></div>
-        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Tecnología Avanzada</h3>
-        <p class="font-body text-sm text-gray-500 leading-relaxed">Equipamiento de última generación: diagnóstico por imagen, análisis computarizado de la marcha e impresión 3D de ortesis personalizadas.</p>
+      <!-- Card 1: Tecnología — azul/teal -->
+      <div class="value-card group relative rounded-2xl p-7 shadow-md overflow-hidden cursor-default reveal reveal-delay-1"
+           style="background:linear-gradient(135deg,#0d9488 0%,#0f766e 100%)">
+        <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 80% 20%,white 0%,transparent 60%)"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
+          </div>
+          <h3 class="font-display text-2xl font-semibold text-white mb-3">Tecnología Avanzada</h3>
+          <p class="font-body text-sm text-white/85 leading-relaxed">Equipamiento de última generación: diagnóstico por imagen, análisis computarizado de la marcha e impresión 3D de ortesis personalizadas.</p>
+          <div class="mt-5 w-8 h-0.5 bg-white/40 group-hover:w-16 transition-all duration-500"></div>
+        </div>
       </div>
-      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-2">
-        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="graduation-cap" class="w-7 h-7 text-teal-600"></i></div>
-        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Especialistas Certificados</h3>
-        <p class="font-body text-sm text-gray-500 leading-relaxed">Equipo con titulación universitaria en Podología y formación continua en los congresos internacionales más relevantes de la especialidad.</p>
+
+      <!-- Card 2: Especialistas — índigo/violeta -->
+      <div class="value-card group relative rounded-2xl p-7 shadow-md overflow-hidden cursor-default reveal reveal-delay-2"
+           style="background:linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%)">
+        <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 20% 80%,white 0%,transparent 60%)"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
+          </div>
+          <h3 class="font-display text-2xl font-semibold text-white mb-3">Especialistas Certificados</h3>
+          <p class="font-body text-sm text-white/85 leading-relaxed">Equipo con titulación universitaria en Podología y formación continua en los congresos internacionales más relevantes de la especialidad.</p>
+          <div class="mt-5 w-8 h-0.5 bg-white/40 group-hover:w-16 transition-all duration-500"></div>
+        </div>
       </div>
-      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-3">
-        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="heart-handshake" class="w-7 h-7 text-teal-600"></i></div>
-        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Atención Personalizada</h3>
-        <p class="font-body text-sm text-gray-500 leading-relaxed">Cada paciente recibe un plan de tratamiento individualizado, con seguimiento continuo y comunicación directa con su especialista.</p>
+
+      <!-- Card 3: Atención — rosa/magenta -->
+      <div class="value-card group relative rounded-2xl p-7 shadow-md overflow-hidden cursor-default reveal reveal-delay-3"
+           style="background:linear-gradient(135deg,#db2777 0%,#be185d 100%)">
+        <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 80% 80%,white 0%,transparent 60%)"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="heart-handshake" class="w-7 h-7 text-white"></i>
+          </div>
+          <h3 class="font-display text-2xl font-semibold text-white mb-3">Atención Personalizada</h3>
+          <p class="font-body text-sm text-white/85 leading-relaxed">Cada paciente recibe un plan de tratamiento individualizado, con seguimiento continuo y comunicación directa con su especialista.</p>
+          <div class="mt-5 w-8 h-0.5 bg-white/40 group-hover:w-16 transition-all duration-500"></div>
+        </div>
       </div>
-      <div class="value-card bg-white rounded-2xl p-7 shadow-sm reveal reveal-delay-4">
-        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-5"><i data-lucide="shield" class="w-7 h-7 text-teal-600"></i></div>
-        <h3 class="font-display text-2xl font-semibold text-gray-900 mb-3">Máxima Esterilización</h3>
-        <p class="font-body text-sm text-gray-500 leading-relaxed">Protocolos hospitalarios de desinfección y esterilización en autoclave certificada. Tu seguridad es nuestra prioridad absoluta.</p>
+
+      <!-- Card 4: Esterilización — naranja/ámbar -->
+      <div class="value-card group relative rounded-2xl p-7 shadow-md overflow-hidden cursor-default reveal reveal-delay-4"
+           style="background:linear-gradient(135deg,#d97706 0%,#b45309 100%)">
+        <div class="absolute inset-0 opacity-10" style="background:radial-gradient(circle at 20% 20%,white 0%,transparent 60%)"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="shield" class="w-7 h-7 text-white"></i>
+          </div>
+          <h3 class="font-display text-2xl font-semibold text-white mb-3">Máxima Esterilización</h3>
+          <p class="font-body text-sm text-white/85 leading-relaxed">Protocolos hospitalarios de desinfección y esterilización en autoclave certificada. Tu seguridad es nuestra prioridad absoluta.</p>
+          <div class="mt-5 w-8 h-0.5 bg-white/40 group-hover:w-16 transition-all duration-500"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -482,7 +608,7 @@
           </div>
         </div>
         <div class="p-6">
-          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. Axel Rivera</h3>
+          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. Aren Olvera Zaldívar</h3>
           <p class="font-body text-sm text-teal-600 font-medium mb-3">Podología · Pie Diabético</p>
           <p class="font-body text-xs text-gray-500 leading-relaxed mb-4">Especialista en el diagnóstico y tratamiento del pie diabético, con sólida formación en prevención de úlceras, evaluación neuropática y protocolos de cuidado avanzado para el paciente con diabetes.</p>
           <div class="flex flex-wrap gap-2 mb-4">
@@ -507,7 +633,7 @@
           </div>
         </div>
         <div class="p-6">
-          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. María González</h3>
+          <h3 class="font-display text-2xl font-semibold text-gray-900 mb-1">Esp. Jeanette Sandoval Martínez</h3>
           <p class="font-body text-sm text-teal-600 font-medium mb-3">Podología Infantil · Deportiva</p>
           <p class="font-body text-xs text-gray-500 leading-relaxed mb-4">Especializada en el desarrollo y corrección del pie en niños, así como en la atención de lesiones deportivas. Combina técnicas de vendaje funcional y ortopodología para resultados óptimos en atletas y pacientes pediátricos.</p>
           <div class="flex flex-wrap gap-2 mb-4">
@@ -829,7 +955,7 @@
               <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="clock" class="w-5 h-5 text-teal-600"></i></div>
               <div>
                 <div class="font-body text-xs font-semibold text-gray-400 uppercase tracking-wider mb-0.5">Horario</div>
-                <p class="font-body text-sm text-gray-700">Lunes a Viernes: 8:00 – 18:00 h<br/>Sábados: Cerrado</p>
+                <p class="font-body text-sm text-gray-700">Lunes a Viernes: 8:00 a.m. – 6:00 p.m.<br/>Sábados y Domingos: Cerrado</p>
               </div>
             </div>
             <div class="flex items-start gap-4">
@@ -1099,312 +1225,425 @@
   </div>
 </div>
 
+<!-- ===================== ADMIN PANEL ===================== -->
+<div id="admin-login-modal" class="admin-modal-overlay fixed inset-0 z-[300] flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8">
+    <div class="text-center mb-6">
+      <div class="w-14 h-14 bg-gradient-to-br from-teal-600 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+      </div>
+      <h3 class="font-display text-2xl font-semibold text-gray-900">Acceso Administrador</h3>
+      <p class="font-body text-sm text-gray-500 mt-1">Ingresa tu contraseña para gestionar los comentarios</p>
+    </div>
+    <input id="admin-pwd-input" type="password" placeholder="Contraseña de administrador"
+      class="form-input w-full rounded-xl px-4 py-3 font-body text-sm text-gray-800 bg-slate-50 mb-3"/>
+    <div id="admin-login-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-2.5 mb-3">
+      <p class="font-body text-xs text-red-600">Contraseña incorrecta. Inténtalo de nuevo.</p>
+    </div>
+    <button onclick="adminLogin()" class="btn-primary w-full text-white font-body font-semibold py-3 rounded-xl text-sm mb-3">
+      Ingresar
+    </button>
+    <button onclick="document.getElementById('admin-login-modal').classList.add('hidden');document.body.style.overflow=''"
+      class="w-full text-gray-500 hover:text-gray-700 font-body text-sm py-2 transition-colors">
+      Cancelar
+    </button>
+  </div>
+</div>
+
 <!-- ===================== JAVASCRIPT ===================== -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-  (function(){emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");})();
+  // ─── INIT ───
   lucide.createIcons();
 
-  // ─── Navbar top offset for topbar ───
-  function adjustNavbar(){
-    const topbar=document.querySelector('.topbar');
-    const navbar=document.getElementById('navbar');
-    if(topbar && window.innerWidth>=640){
-      navbar.style.top=topbar.offsetHeight+'px';
+  // ─── PWA Install Prompt ───
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallBanner();
+  });
+
+  function showInstallBanner() {
+    const existing = document.getElementById('pwa-install-banner');
+    if (existing) return;
+    const banner = document.createElement('div');
+    banner.id = 'pwa-install-banner';
+    banner.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:996;background:white;border-radius:16px;padding:14px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.15);display:flex;align-items:center;gap:12px;border:1px solid rgba(13,148,136,0.2);max-width:calc(100vw - 40px);animation:fadeIn 0.5s ease;';
+    banner.innerHTML = `
+      <div style="width:36px;height:36px;background:linear-gradient(135deg,#0d9488,#0f766e);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="18" height="18"><path d="M12 2C8 2 5 5.5 5 9c0 2.5 1 4.5 2.5 6C9 16.5 9.5 18 9.5 20h5c0-2 .5-3.5 2-5 1.5-1.5 2.5-3.5 2.5-6 0-3.5-3-7-7-7z"/><line x1="9.5" y1="20" x2="14.5" y2="20"/><line x1="10" y1="22" x2="14" y2="22"/></svg>
+      </div>
+      <div style="flex:1;">
+        <p style="margin:0;font-weight:600;font-size:13px;color:#111827;font-family:'DM Sans',sans-serif;">Instalar Podología Avanzada</p>
+        <p style="margin:2px 0 0;font-size:11px;color:#6b7280;font-family:'DM Sans',sans-serif;">Accede más rápido desde tu pantalla de inicio</p>
+      </div>
+      <button onclick="installPWA()" style="background:linear-gradient(135deg,#0d9488,#0f766e);color:white;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Instalar</button>
+      <button onclick="document.getElementById('pwa-install-banner').remove()" style="background:none;border:none;color:#9ca3af;cursor:pointer;padding:4px;font-size:18px;line-height:1;">×</button>
+    `;
+    document.body.appendChild(banner);
+  }
+
+  function installPWA() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      deferredPrompt = null;
+      const b = document.getElementById('pwa-install-banner');
+      if (b) b.remove();
+    });
+  }
+
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+
+  // ─── READING PROGRESS ───
+  function updateReadingProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    const bar = document.getElementById('reading-progress');
+    if (bar) bar.style.width = progress + '%';
+  }
+
+  // ─── SCROLL TO TOP ───
+  const scrollTopBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', () => {
+    updateReadingProgress();
+    if (window.scrollY > 400) scrollTopBtn.classList.add('visible');
+    else scrollTopBtn.classList.remove('visible');
+  }, { passive: true });
+
+  // ─── TOAST NOTIFICATIONS ───
+  function showToast(msg, type = 'success', duration = 3500) {
+    const container = document.getElementById('toast-container');
+    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ️'}</span><span style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#111827;flex:1">${msg}</span><button onclick="this.parentElement.remove()" style="background:none;border:none;color:#9ca3af;cursor:pointer;font-size:16px;line-height:1;flex-shrink:0">×</button>`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add('show'); }); });
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, duration);
+  }
+
+  // ─── NAVBAR ADJUST FOR TOPBAR ───
+  function adjustNavbar() {
+    const topbar = document.querySelector('.topbar');
+    const navbar = document.getElementById('navbar');
+    if (topbar && window.innerWidth >= 640) {
+      navbar.style.top = topbar.offsetHeight + 'px';
     } else {
-      navbar.style.top='0';
+      navbar.style.top = '0';
     }
   }
   adjustNavbar();
-  window.addEventListener('resize',adjustNavbar);
+  window.addEventListener('resize', adjustNavbar);
 
-  // ─── Mobile menu ───
-  const menuBtn=document.getElementById('menu-btn');
-  const mobileMenu=document.getElementById('mobile-menu');
-  const iconOpen=document.getElementById('menu-icon-open');
-  const iconClose=document.getElementById('menu-icon-close');
-  menuBtn.addEventListener('click',()=>{
-    const isOpen=mobileMenu.classList.contains('open');
-    mobileMenu.classList.toggle('open',!isOpen);
-    iconOpen.classList.toggle('hidden',!isOpen);
-    iconClose.classList.toggle('hidden',isOpen);
+  // ─── MOBILE MENU ───
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    mobileMenu.classList.toggle('open', !isOpen);
+    iconOpen.classList.toggle('hidden', !isOpen);
+    iconClose.classList.toggle('hidden', isOpen);
   });
-  document.querySelectorAll('.mobile-link').forEach(link=>{
-    link.addEventListener('click',()=>{
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       iconOpen.classList.remove('hidden');
       iconClose.classList.add('hidden');
     });
   });
 
-  // ─── Navbar shadow on scroll ───
-  const navbar=document.getElementById('navbar');
-  window.addEventListener('scroll',()=>{
-    navbar.style.boxShadow=window.scrollY>30?'0 4px 24px rgba(13,148,136,0.10)':'none';
-  });
+  // ─── NAVBAR SHADOW ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.boxShadow = window.scrollY > 30 ? '0 4px 24px rgba(13,148,136,0.10)' : 'none';
+  }, { passive: true });
 
-  // ─── Smooth scroll ───
-  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
-    anchor.addEventListener('click',function(e){
+  // ─── SMOOTH SCROLL ───
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
       e.preventDefault();
-      const target=document.querySelector(this.getAttribute('href'));
-      if(target){
-        const topbarH=document.querySelector('.topbar')&&window.innerWidth>=640?document.querySelector('.topbar').offsetHeight:0;
-        const navbarH=navbar.offsetHeight;
-        const top=target.getBoundingClientRect().top+window.pageYOffset-(navbarH+topbarH+8);
-        window.scrollTo({top,behavior:'smooth'});
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const topbarH = document.querySelector('.topbar') && window.innerWidth >= 640 ? document.querySelector('.topbar').offsetHeight : 0;
+        const navbarH = navbar.offsetHeight;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - (navbarH + topbarH + 8);
+        window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
 
-  // ─── WhatsApp panel ───
-  let waPanelOpen=false;
-  function toggleWaPanel(){
-    waPanelOpen=!waPanelOpen;
-    const panel=document.getElementById('wa-panel');
-    const iconO=document.getElementById('wa-icon-open');
-    const iconC=document.getElementById('wa-icon-close');
-    panel.classList.toggle('open',waPanelOpen);
-    iconO.classList.toggle('hidden',waPanelOpen);
-    iconC.classList.toggle('hidden',!waPanelOpen);
+  // ─── RIPPLE EFFECT ───
+  document.querySelectorAll('.btn-primary,.btn-gold').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const circle = document.createElement('span');
+      const diameter = Math.max(this.clientWidth, this.clientHeight);
+      const rect = this.getBoundingClientRect();
+      circle.style.cssText = `width:${diameter}px;height:${diameter}px;left:${e.clientX - rect.left - diameter/2}px;top:${e.clientY - rect.top - diameter/2}px;position:absolute;border-radius:50%;background:rgba(255,255,255,0.35);transform:scale(0);animation:ripple-anim 0.6s linear;pointer-events:none;`;
+      this.style.position = 'relative';
+      this.style.overflow = 'hidden';
+      this.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    });
+  });
+
+  // ─── TILT EFFECT on service cards ───
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -5;
+      const rotY = ((x - cx) / cx) * 5;
+      card.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ─── WHATSAPP PANEL ───
+  let waPanelOpen = false;
+  function toggleWaPanel() {
+    waPanelOpen = !waPanelOpen;
+    const panel = document.getElementById('wa-panel');
+    const iconO = document.getElementById('wa-icon-open');
+    const iconC = document.getElementById('wa-icon-close');
+    panel.classList.toggle('open', waPanelOpen);
+    iconO.classList.toggle('hidden', waPanelOpen);
+    iconC.classList.toggle('hidden', !waPanelOpen);
   }
-  function closeWaPanel(){
-    waPanelOpen=false;
+  function closeWaPanel() {
+    waPanelOpen = false;
     document.getElementById('wa-panel').classList.remove('open');
     document.getElementById('wa-icon-open').classList.remove('hidden');
     document.getElementById('wa-icon-close').classList.add('hidden');
   }
-  document.addEventListener('click',(e)=>{
-    const panel=document.getElementById('wa-panel');
-    const btn=document.getElementById('wa-float-btn');
-    if(waPanelOpen && panel && !panel.contains(e.target) && !btn.contains(e.target)){
-      closeWaPanel();
-    }
+  document.addEventListener('click', (e) => {
+    const panel = document.getElementById('wa-panel');
+    const btn = document.getElementById('wa-float-btn');
+    if (waPanelOpen && panel && !panel.contains(e.target) && !btn.contains(e.target)) closeWaPanel();
   });
 
-  // ─── Scroll reveal ───
-  const revealElements=document.querySelectorAll('.reveal');
-  const observer=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
+  // ─── SCROLL REVEAL ───
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
     });
-  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-  revealElements.forEach(el=>observer.observe(el));
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
 
-  // ─── Counter animation ───
-  function animateCounter(el){
-    const target=parseInt(el.getAttribute('data-target'));
-    const suffix=el.getAttribute('data-suffix')||'';
-    const duration=2000;const step=target/60;let current=0;
-    const timer=setInterval(()=>{
-      current+=step;
-      if(current>=target){current=target;clearInterval(timer);}
-      el.textContent=(target>100?Math.floor(current).toLocaleString():Math.floor(current))+suffix;
-    },duration/60);
+  // ─── COUNTER ANIMATION ───
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 2000; const step = target / 60; let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = (target > 100 ? Math.floor(current).toLocaleString() : Math.floor(current)) + suffix;
+    }, duration / 60);
   }
-  const counters=document.querySelectorAll('.counter');
-  const counterObserver=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{if(entry.isIntersecting){animateCounter(entry.target);counterObserver.unobserve(entry.target);}});
-  },{threshold:0.5});
-  counters.forEach(c=>counterObserver.observe(c));
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { animateCounter(entry.target); counterObserver.unobserve(entry.target); } });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObserver.observe(c));
 
-  // ─── FAQ accordion ───
-  document.querySelectorAll('.faq-trigger').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const item=btn.closest('.faq-item');
-      const answer=item.querySelector('.faq-answer');
-      const isOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-answer').classList.remove('open');});
-      if(!isOpen){item.classList.add('open');answer.classList.add('open');}
+  // ─── FAQ ACCORDION ───
+  document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-answer').classList.remove('open'); });
+      if (!isOpen) { item.classList.add('open'); answer.classList.add('open'); }
     });
   });
 
   // ─── CARTA MODAL ───
-  function openCartaModal(){
+  function openCartaModal() {
     document.getElementById('carta-modal').classList.remove('hidden');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
     lucide.createIcons();
   }
-  function closeCartaModal(){
+  function closeCartaModal() {
     document.getElementById('carta-modal').classList.add('hidden');
-    document.body.style.overflow='';
+    document.body.style.overflow = '';
   }
 
   // ─── SERVICE MODALS ───
   const serviceData = {
-    general: {
-      title: 'Podología General y Quiropodología',
-      icon: 'scissors',
-      desc: 'La podología general es el pilar de la salud del pie. Comprende el conjunto de tratamientos conservadores destinados a mantener los pies en óptimas condiciones y a tratar las patologías más frecuentes del día a día.',
-      items: ['Corte y limado correcto de uñas (técnica aséptica)', 'Tratamiento de hiperqueratosis y callosidades (helomas)', 'Eliminación de durezas y piel seca agrietada', 'Hidratación y cuidado de la piel plantar', 'Revisión periódica preventiva completa']
-    },
-    derma: {
-      title: 'Podología Dermatológica',
-      icon: 'sparkles',
-      desc: 'Las patologías dérmicas del pie son de las más frecuentes y molestas. Contamos con protocolos avanzados para resolverlas de forma definitiva, incluyendo tratamiento láser de última generación.',
-      items: ['Tratamiento de onicomicosis (hongos) con láser Nd:YAG', 'Eliminación de verrugas plantares y papilomas', 'Tratamiento de eccemas y dermatitis del pie', 'Control de anhidrosis (piel seca) e hiperhidrosis (sudoración excesiva)', 'Diagnóstico diferencial de lesiones cutáneas']
-    },
-    cirugia: {
-      title: 'Cirugía Podológica Avanzada',
-      icon: 'stethoscope',
-      desc: 'Realizamos cirugía ambulatoria mínimamente invasiva bajo anestesia local. El paciente llega, es intervenido y puede caminar al salir de la clínica. Sin hospitalización, sin puntos en la mayoría de los casos.',
-      items: ['Matricectomía parcial o total para onicocriptosis crónica (uña incarnada)', 'Corrección de deformidades menores del dedo', 'Exéresis de quistes y nódulos benignos', 'Cirugía de hallux valgus leve-moderado (juanete)', 'Tasa de éxito y no recidiva superior al 98%']
-    },
-    biomecanica: {
-      title: 'Biomecánica y Ortopodología',
-      icon: 'activity',
-      desc: 'La biomecánica estudia cómo pisas y caminas para identificar alteraciones que causan dolores en pies, rodillas, caderas y espalda. Fabricamos plantillas exclusivamente para ti usando tecnología de impresión 3D.',
-      items: ['Análisis computarizado de la marcha con plataforma de presiones', 'Estudio podoscópico estático y dinámico', 'Diseño de ortesis plantar personalizada por escáner 3D', 'Fabricación en materiales termoplásticos de alta durabilidad', 'Tratamiento de fascitis plantar, espolón calcáneo y metatarsalgia']
-    },
-    diabetico: {
-      title: 'Pie Diabético',
-      icon: 'heart-pulse',
-      desc: 'El pie diabético requiere atención especializada y preventiva. Nuestro protocolo está diseñado para minimizar el riesgo de úlceras y amputaciones, la complicación más grave de la diabetes no controlada.',
-      items: ['Evaluación neuropática con monofilamento y diapasón', 'Exploración vascular: pulsos y Doppler', 'Cuidado podológico preventivo mensual certificado', 'Curación avanzada de úlceras con apósitos especializados', 'Educación al paciente y familia sobre autocuidado', 'Coordinación con endocrinólogo y médico internista']
-    },
-    deportiva: {
-      title: 'Podología Deportiva',
-      icon: 'zap',
-      desc: 'El pie del deportista está sometido a cargas extremas. Nuestro equipo trabaja en la prevención de lesiones, la optimización del rendimiento biomecánico y la recuperación funcional.',
-      items: ['Análisis biomecánico del gesto deportivo específico', 'Vendajes funcionales preventivos y curativos', 'Plantillas deportivas personalizadas por actividad', 'Tratamiento de fascitis, tendinopatías y sobrecargas', 'Asesoría en elección de calzado deportivo adecuado']
-    },
-    infantil: {
-      title: 'Podología Infantil y Geriátrica',
-      icon: 'users',
-      desc: 'Atendemos a todas las edades con la misma dedicación. En niños, intervenimos en el momento oportuno para corregir alteraciones. En adultos mayores, preservamos la movilidad y calidad de vida.',
-      items: [
-        '🧒 Evaluación del desarrollo del pie entre 3 y 12 años',
-        '🧒 Tratamiento de pie plano, metatarso varo y dedos en garra infantil',
-        '🧒 Ortesis plantares pediátricas de termoplástico flexible',
-        '👴 Cuidado integral del pie geriátrico: uñas, callosidades, grietas',
-        '👴 Prevención de caídas mediante análisis de la marcha',
-        '👴 Adaptación de calzado ortopédico y plantillas de confort'
-      ]
-    }
+    general: { title:'Podología General y Quiropodología', icon:'scissors', desc:'La podología general comprende los tratamientos conservadores para mantener los pies en óptimas condiciones y tratar las patologías más frecuentes del día a día.', items:['Corte y limado correcto de uñas (técnica aséptica)','Tratamiento de hiperqueratosis y callosidades (helomas)','Eliminación de durezas y piel seca agrietada','Hidratación y cuidado de la piel plantar','Revisión periódica preventiva completa'] },
+    derma: { title:'Podología Dermatológica', icon:'sparkles', desc:'Las patologías dérmicas del pie son de las más frecuentes y molestas. Contamos con protocolos avanzados para resolverlas de forma definitiva, incluyendo tratamiento láser.', items:['Tratamiento de onicomicosis (hongos) con láser Nd:YAG','Eliminación de verrugas plantares y papilomas','Tratamiento de eccemas y dermatitis del pie','Control de anhidrosis e hiperhidrosis plantar','Diagnóstico diferencial de lesiones cutáneas'] },
+    cirugia: { title:'Cirugía Podológica Avanzada', icon:'stethoscope', desc:'Realizamos cirugía ambulatoria mínimamente invasiva bajo anestesia local. El paciente llega, es intervenido y puede caminar al salir de la clínica. Sin hospitalización.', items:['Matricectomía parcial/total para onicocriptosis crónica','Corrección de deformidades menores del dedo','Exéresis de quistes y nódulos benignos','Cirugía de hallux valgus leve-moderado (juanete)','Tasa de éxito y no recidiva > 98%'] },
+    biomecanica: { title:'Biomecánica y Ortopodología', icon:'activity', desc:'La biomecánica estudia cómo pisas y caminas para identificar alteraciones que causan dolores en pies, rodillas, caderas y espalda. Fabricamos plantillas con tecnología 3D.', items:['Análisis computarizado de la marcha con plataforma de presiones','Estudio podoscópico estático y dinámico','Diseño de ortesis plantar personalizada por escáner 3D','Fabricación en termoplásticos de alta durabilidad','Tratamiento de fascitis plantar, espolón y metatarsalgia'] },
+    diabetico: { title:'Pie Diabético', icon:'heart-pulse', desc:'El pie diabético requiere atención especializada y preventiva. Nuestro protocolo está diseñado para minimizar el riesgo de úlceras y amputaciones.', items:['Evaluación neuropática con monofilamento y diapasón','Exploración vascular: pulsos y Doppler','Cuidado podológico preventivo mensual certificado','Curación avanzada de úlceras con apósitos especializados','Educación al paciente y familia sobre autocuidado'] },
+    deportiva: { title:'Podología Deportiva', icon:'zap', desc:'El pie del deportista está sometido a cargas extremas. Nuestro equipo trabaja en la prevención de lesiones, la optimización del rendimiento y la recuperación funcional.', items:['Análisis biomecánico del gesto deportivo específico','Vendajes funcionales preventivos y curativos','Plantillas deportivas personalizadas por actividad','Tratamiento de fascitis, tendinopatías y sobrecargas','Asesoría en elección de calzado deportivo adecuado'] },
+    infantil: { title:'Podología Infantil y Geriátrica', icon:'users', desc:'Atendemos a todas las edades con la misma dedicación. En niños, intervenimos en el momento oportuno. En adultos mayores, preservamos la movilidad y calidad de vida.', items:['🧒 Evaluación del pie entre 3 y 12 años','🧒 Tratamiento de pie plano, metatarso varo y dedos en garra','🧒 Ortesis pediátricas de termoplástico flexible','👴 Cuidado integral del pie geriátrico','👴 Prevención de caídas mediante análisis de la marcha'] }
   };
 
-  function openServiceModal(id){
-    const d=serviceData[id];
-    if(!d) return;
-    document.getElementById('svc-modal-title').textContent=d.title;
-    document.getElementById('svc-modal-desc').textContent=d.desc;
-    document.getElementById('svc-modal-icon').innerHTML=`<i data-lucide="${d.icon}" class="w-7 h-7 text-teal-600"></i>`;
-    const listEl=document.getElementById('svc-modal-list');
-    listEl.innerHTML=d.items.map(item=>`<div class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5"></i><span class="font-body text-sm text-gray-600">${item}</span></div>`).join('');
+  function openServiceModal(id) {
+    const d = serviceData[id]; if (!d) return;
+    document.getElementById('svc-modal-title').textContent = d.title;
+    document.getElementById('svc-modal-desc').textContent = d.desc;
+    document.getElementById('svc-modal-icon').innerHTML = `<i data-lucide="${d.icon}" class="w-7 h-7 text-teal-600"></i>`;
+    document.getElementById('svc-modal-list').innerHTML = d.items.map(item => `<div class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5"></i><span class="font-body text-sm text-gray-600">${item}</span></div>`).join('');
     document.getElementById('service-modal').classList.remove('hidden');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
     lucide.createIcons();
   }
-  function closeServiceModal(){
+  function closeServiceModal() {
     document.getElementById('service-modal').classList.add('hidden');
-    document.body.style.overflow='';
+    document.body.style.overflow = '';
+  }
+
+  // ─── ADMIN SYSTEM ───
+  const ADMIN_PASSWORD = 'podo2025admin';
+  let isAdmin = false;
+
+  function openAdminLogin() {
+    document.getElementById('admin-login-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    lucide.createIcons();
+    setTimeout(() => document.getElementById('admin-pwd-input').focus(), 100);
+  }
+  function adminLogin() {
+    const pwd = document.getElementById('admin-pwd-input').value;
+    if (pwd === ADMIN_PASSWORD) {
+      isAdmin = true;
+      document.getElementById('admin-login-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      document.getElementById('admin-pwd-input').value = '';
+      document.getElementById('admin-login-error').classList.add('hidden');
+      showToast('Sesión de administrador iniciada', 'success');
+      openAllReviewsModal();
+    } else {
+      document.getElementById('admin-login-error').classList.remove('hidden');
+      document.getElementById('admin-pwd-input').value = '';
+      document.getElementById('admin-pwd-input').focus();
+    }
+  }
+  document.getElementById('admin-pwd-input')?.addEventListener('keydown', e => { if (e.key === 'Enter') adminLogin(); });
+
+  // Secret admin trigger: triple-click on footer copyright
+  let footerClicks = 0;
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.querySelector('p')?.addEventListener('click', () => {
+        footerClicks++;
+        if (footerClicks >= 3) { footerClicks = 0; openAdminLogin(); }
+        setTimeout(() => { footerClicks = 0; }, 1000);
+      });
+    }
+  });
+
+  function deleteReview(idx) {
+    if (!isAdmin) return;
+    const reviews = getUserReviews();
+    reviews.splice(idx, 1);
+    saveReviews(reviews);
+    renderTestimonialCarousel();
+    openAllReviewsModal();
+    showToast('Comentario eliminado', 'warning');
   }
 
   // ─── REVIEWS SYSTEM ───
-  let currentRating=0;
-  const ratingLabels=['','Muy malo','Regular','Bueno','Muy bueno','Excelente'];
+  let currentRating = 0;
+  const ratingLabels = ['', 'Muy malo 😞', 'Regular 😐', 'Bueno 🙂', 'Muy bueno 😊', 'Excelente ⭐'];
 
-  // Load stored reviews
-  function getReviews(){
-    try{return JSON.parse(localStorage.getItem('pa_reviews')||'[]');}
-    catch(e){return[];}
+  function getUserReviews() {
+    try { return JSON.parse(localStorage.getItem('pa_reviews') || '[]'); } catch(e) { return []; }
   }
-  function saveReviews(arr){
-    try{localStorage.setItem('pa_reviews',JSON.stringify(arr));}catch(e){}
+  function saveReviews(arr) {
+    try { localStorage.setItem('pa_reviews', JSON.stringify(arr)); } catch(e) {}
   }
 
-  function setRating(val){
-    currentRating=val;
-    document.querySelectorAll('.star-btn').forEach((btn,i)=>{
-      btn.style.color=i<val?'#c9a96e':'#d1d5db';
-      btn.style.background=i<val?'#fef9f0':'#f1f5f9';
+  function setRating(val) {
+    currentRating = val;
+    document.querySelectorAll('.star-btn').forEach((btn, i) => {
+      btn.style.color = i < val ? '#c9a96e' : '#d1d5db';
+      btn.style.background = i < val ? '#fef9f0' : '#f1f5f9';
+      btn.style.transform = i < val ? 'scale(1.1)' : 'scale(1)';
     });
-    document.getElementById('rating-label').textContent=ratingLabels[val]||'';
+    document.getElementById('rating-label').textContent = ratingLabels[val] || '';
   }
 
-  function openReviewModal(){
-    currentRating=0;
-    document.getElementById('rev-name').value='';
-    document.getElementById('rev-service').value='';
-    document.getElementById('rev-comment').value='';
+  function openReviewModal() {
+    currentRating = 0;
+    ['rev-name','rev-comment'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('rev-service').value = '';
     document.getElementById('review-error').classList.add('hidden');
-    document.querySelectorAll('.star-btn').forEach(btn=>{btn.style.color='';btn.style.background='';});
-    document.getElementById('rating-label').textContent='';
+    document.querySelectorAll('.star-btn').forEach(btn => { btn.style.color = ''; btn.style.background = ''; btn.style.transform = ''; });
+    document.getElementById('rating-label').textContent = '';
     document.getElementById('review-modal').classList.remove('hidden');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
     lucide.createIcons();
+    setTimeout(() => document.getElementById('rev-name').focus(), 100);
   }
-  function closeReviewModal(){
-    document.getElementById('review-modal').classList.add('hidden');
-    document.body.style.overflow='';
-  }
+  function closeReviewModal() { document.getElementById('review-modal').classList.add('hidden'); document.body.style.overflow = ''; }
 
-  function submitReview(){
-    const name=document.getElementById('rev-name').value.trim();
-    const comment=document.getElementById('rev-comment').value.trim();
-    if(!name||!comment||currentRating===0){
+  function submitReview() {
+    const name = document.getElementById('rev-name').value.trim();
+    const comment = document.getElementById('rev-comment').value.trim();
+    if (!name || !comment || currentRating === 0) {
       document.getElementById('review-error').classList.remove('hidden');
       return;
     }
-    const reviews=getReviews();
-    reviews.unshift({
-      name,
-      service:document.getElementById('rev-service').value||'General',
-      rating:currentRating,
-      comment,
-      date: new Date().toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'})
-    });
+    const reviews = getUserReviews();
+    reviews.unshift({ name, service: document.getElementById('rev-service').value || 'General', rating: currentRating, comment, date: new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' }) });
     saveReviews(reviews);
     closeReviewModal();
     renderTestimonialCarousel();
-    alert('¡Gracias por tu opinión, '+name+'! Tu comentario ha sido publicado.');
+    showToast(`¡Gracias, ${name}! Tu opinión ha sido publicada. 🎉`, 'success', 5000);
   }
 
-  function starHTML(rating){
-    return Array.from({length:5},(_,i)=>`<span style="color:${i<rating?'#c9a96e':'#d1d5db'};font-size:14px">★</span>`).join('');
+  function starHTML(rating) {
+    return Array.from({length:5}, (_,i) => `<span style="color:${i<rating?'#c9a96e':'#d1d5db'};font-size:14px">★</span>`).join('');
   }
+  function getInitials(name) { return name.split(' ').slice(0,2).map(n=>n[0]||'').join('').toUpperCase() || '??'; }
+  const avatarColors = ['from-teal-400 to-teal-600','from-yellow-400 to-yellow-500','from-purple-400 to-purple-600','from-pink-400 to-pink-500','from-blue-400 to-blue-600','from-green-400 to-green-600'];
+  function getAvatarColor(name) { let h=0; for(let c of name) h=((h<<5)-h)+c.charCodeAt(0); return avatarColors[Math.abs(h)%avatarColors.length]; }
 
-  function getInitials(name){
-    return name.split(' ').slice(0,2).map(n=>n[0]||'').join('').toUpperCase()||'??';
-  }
-  const avatarColors=['from-teal-400 to-teal-600','from-yellow-400 to-yellow-500','from-purple-400 to-purple-600','from-pink-400 to-pink-500','from-blue-400 to-blue-600','from-green-400 to-green-600'];
-  function getAvatarColor(name){
-    let h=0;for(let c of name)h=((h<<5)-h)+c.charCodeAt(0);
-    return avatarColors[Math.abs(h)%avatarColors.length];
-  }
-
-  // Static seed reviews
-  const staticReviews=[
-    {name:'María R.',service:'Uña incarnada',rating:5,comment:'Llevaba más de dos años con una uña incarnada que me impedía caminar sin dolor. En Podología Avanzada resolvieron el problema en una sola visita. Al día siguiente ya estaba de vuelta en el trabajo.',date:'12 de marzo, 2025'},
-    {name:'Carlos A.',service:'Biomecánica 3D',rating:5,comment:'Soy corredor amateur y siempre tuve molestias en la fascia. El análisis de pisada fue una revelación: con las plantillas 3D personalizadas, mis marcas mejoraron y desapareció el dolor por completo.',date:'5 de febrero, 2025'},
-    {name:'Laura P.',service:'Pie Diabético',rating:5,comment:'Mi padre tiene diabetes y siempre tuvimos miedo al riesgo de úlceras. Nos dieron un protocolo preventivo completo. El especialista nos explicó todo con una paciencia y claridad excepcionales.',date:'20 de enero, 2025'},
+  const staticReviews = [
+    { name:'María R.', service:'Uña incarnada', rating:5, comment:'Llevaba más de dos años con una uña incarnada que me impedía caminar sin dolor. Resolvieron el problema en una sola visita. Al día siguiente ya estaba de vuelta en el trabajo.', date:'12 de marzo, 2025' },
+    { name:'Carlos A.', service:'Biomecánica 3D', rating:5, comment:'Soy corredor amateur y siempre tuve molestias en la fascia. El análisis de pisada fue una revelación: con las plantillas 3D personalizadas, mis marcas mejoraron y desapareció el dolor.', date:'5 de febrero, 2025' },
+    { name:'Laura P.', service:'Pie Diabético', rating:5, comment:'Mi padre tiene diabetes y siempre tuvimos miedo al riesgo de úlceras. Nos dieron un protocolo preventivo completo. El especialista nos explicó todo con paciencia excepcional.', date:'20 de enero, 2025' },
   ];
 
-  function allReviews(){
-    return [...staticReviews,...getReviews()];
-  }
+  function allReviews() { return [...staticReviews, ...getUserReviews()]; }
 
   // ─── CAROUSEL ───
-  let testIdx=0;
-  let testPerPage=3;
+  let testIdx = 0;
+  let testPerPage = 3;
 
-  function getTestPerPage(){
-    return window.innerWidth>=768?3:1;
-  }
+  function getTestPerPage() { return window.innerWidth >= 768 ? 3 : 1; }
 
-  function renderTestimonialCarousel(){
-    testPerPage=getTestPerPage();
-    const reviews=allReviews();
-    const track=document.getElementById('testimonials-track');
-    if(!track)return;
-    track.innerHTML='';
-    reviews.forEach(r=>{
-      const initials=getInitials(r.name);
-      const color=getAvatarColor(r.name);
-      const div=document.createElement('div');
-      div.className='testimonial-card rounded-2xl p-7 flex-none';
-      div.style.width=testPerPage===1?'100%':'calc(33.33% - 16px)';
-      div.innerHTML=`
+  function renderTestimonialCarousel() {
+    testPerPage = getTestPerPage();
+    const reviews = allReviews();
+    const track = document.getElementById('testimonials-track');
+    if (!track) return;
+    track.innerHTML = '';
+    reviews.forEach(r => {
+      const initials = getInitials(r.name);
+      const color = getAvatarColor(r.name);
+      const div = document.createElement('div');
+      div.className = 'testimonial-card rounded-2xl p-7 flex-none';
+      div.style.width = testPerPage === 1 ? '100%' : 'calc(33.33% - 16px)';
+      div.innerHTML = `
         <div class="flex items-center gap-1 mb-4">${starHTML(r.rating)}</div>
         <blockquote class="font-body text-gray-600 text-sm leading-relaxed mb-6">"${r.comment}"</blockquote>
         <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
@@ -1416,73 +1655,82 @@
         </div>`;
       track.appendChild(div);
     });
-    testIdx=0;
+    testIdx = 0;
     updateCarousel();
     renderDots();
     lucide.createIcons();
   }
 
-  function totalPages(){
-    return Math.max(1,Math.ceil(allReviews().length/testPerPage));
-  }
+  function totalPages() { return Math.max(1, Math.ceil(allReviews().length / testPerPage)); }
 
-  function updateCarousel(){
-    const track=document.getElementById('testimonials-track');
-    if(!track)return;
-    const cardW=track.children[0]?track.children[0].offsetWidth+24:0;
-    const offset=testIdx*testPerPage*cardW;
-    track.style.transform=`translateX(-${offset}px)`;
-    // show/hide nav
-    const prev=document.getElementById('prev-test');
-    const next=document.getElementById('next-test');
-    if(prev)prev.style.opacity=testIdx===0?'0.3':'1';
-    if(next)next.style.opacity=testIdx>=totalPages()-1?'0.3':'1';
-    // update dots
-    document.querySelectorAll('.test-dot').forEach((d,i)=>{
-      d.classList.toggle('bg-teal-600',i===testIdx);
-      d.classList.toggle('bg-gray-200',i!==testIdx);
+  function updateCarousel() {
+    const track = document.getElementById('testimonials-track');
+    if (!track || !track.children.length) return;
+    const cardW = track.children[0].offsetWidth + 24;
+    const offset = testIdx * testPerPage * cardW;
+    track.style.transform = `translateX(-${offset}px)`;
+    const prev = document.getElementById('prev-test');
+    const next = document.getElementById('next-test');
+    if (prev) prev.style.opacity = testIdx === 0 ? '0.3' : '1';
+    if (next) next.style.opacity = testIdx >= totalPages()-1 ? '0.3' : '1';
+    document.querySelectorAll('.test-dot').forEach((d,i) => {
+      d.classList.toggle('bg-teal-600', i === testIdx);
+      d.classList.toggle('bg-gray-200', i !== testIdx);
     });
   }
 
-  function prevTestimonial(){
-    if(testIdx>0){testIdx--;updateCarousel();}
-  }
-  function nextTestimonial(){
-    if(testIdx<totalPages()-1){testIdx++;updateCarousel();}
-  }
+  function prevTestimonial() { if (testIdx > 0) { testIdx--; updateCarousel(); } }
+  function nextTestimonial() { if (testIdx < totalPages()-1) { testIdx++; updateCarousel(); } }
 
-  function renderDots(){
-    const dotsEl=document.getElementById('test-dots');
-    if(!dotsEl)return;
-    dotsEl.innerHTML='';
-    for(let i=0;i<totalPages();i++){
-      const d=document.createElement('button');
-      d.className=`test-dot w-2 h-2 rounded-full transition-colors ${i===0?'bg-teal-600':'bg-gray-200'}`;
-      d.onclick=()=>{testIdx=i;updateCarousel();};
+  function renderDots() {
+    const dotsEl = document.getElementById('test-dots');
+    if (!dotsEl) return;
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < totalPages(); i++) {
+      const d = document.createElement('button');
+      d.className = `test-dot w-2.5 h-2.5 rounded-full transition-all duration-300 ${i===0?'bg-teal-600 w-6':'bg-gray-200'}`;
+      d.onclick = () => { testIdx = i; updateCarousel(); renderDots(); };
       dotsEl.appendChild(d);
     }
   }
 
-  window.addEventListener('resize',()=>{
-    const newPP=getTestPerPage();
-    if(newPP!==testPerPage){renderTestimonialCarousel();}
+  // Swipe support for carousel
+  let touchStartX = 0;
+  const track = document.getElementById('testimonials-track');
+  if (track) {
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { if (diff > 0) nextTestimonial(); else prevTestimonial(); }
+    }, { passive: true });
+  }
+
+  window.addEventListener('resize', () => {
+    const newPP = getTestPerPage();
+    if (newPP !== testPerPage) renderTestimonialCarousel();
   });
 
   // ─── ALL REVIEWS MODAL ───
-  function openAllReviewsModal(){
-    const reviews=allReviews();
-    document.getElementById('review-count-label').textContent=`${reviews.length} opinión${reviews.length!==1?'es':''} verificada${reviews.length!==1?'s':''}`;
-    const list=document.getElementById('all-reviews-list');
-    list.innerHTML=reviews.map(r=>{
-      const initials=getInitials(r.name);
-      const color=getAvatarColor(r.name);
-      return `<div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+  function openAllReviewsModal() {
+    const reviews = allReviews();
+    const userReviews = getUserReviews();
+    document.getElementById('review-count-label').textContent = `${reviews.length} opinión${reviews.length!==1?'es':''} · ${reviews.filter(r=>r.rating>=4).length} recomiendan esta clínica`;
+    const list = document.getElementById('all-reviews-list');
+    list.innerHTML = reviews.map((r, globalIdx) => {
+      const initials = getInitials(r.name);
+      const color = getAvatarColor(r.name);
+      const userIdx = globalIdx - staticReviews.length;
+      const isDeletable = isAdmin && userIdx >= 0 && userIdx < userReviews.length;
+      return `<div class="review-item bg-gray-50 rounded-xl p-4 border border-gray-100 relative group">
         <div class="flex items-center gap-3 mb-2">
           <div class="w-9 h-9 bg-gradient-to-br ${color} rounded-full flex items-center justify-center text-white font-body font-semibold text-xs flex-shrink-0">${initials}</div>
           <div class="flex-1">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-2">
               <span class="font-body text-sm font-semibold text-gray-800">${r.name}</span>
-              <span class="font-body text-xs text-gray-400">${r.date||''}</span>
+              <div class="flex items-center gap-2">
+                <span class="font-body text-xs text-gray-400">${r.date||''}</span>
+                ${isDeletable ? `<button onclick="deleteReview(${userIdx})" class="admin-delete-btn bg-red-100 hover:bg-red-500 text-red-500 hover:text-white rounded-lg px-2 py-1 text-xs font-body font-medium transition-all duration-200 flex items-center gap-1"><span>🗑️</span> Eliminar</button>` : ''}
+              </div>
             </div>
             <div class="flex items-center gap-2">
               <div>${starHTML(r.rating)}</div>
@@ -1494,86 +1742,116 @@
       </div>`;
     }).join('');
     document.getElementById('all-reviews-modal').classList.remove('hidden');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
   }
-  function closeAllReviewsModal(){
-    document.getElementById('all-reviews-modal').classList.add('hidden');
-    document.body.style.overflow='';
-  }
+  function closeAllReviewsModal() { document.getElementById('all-reviews-modal').classList.add('hidden'); document.body.style.overflow = ''; }
 
-  // ─── FORM with EmailJS ───
-  const form=document.getElementById('contact-form');
-  const submitBtn=document.getElementById('submit-btn');
-  const submitText=document.getElementById('submit-text');
-  const formSuccess=document.getElementById('form-success');
+  // ─── FORM + RESEND API ───
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitText = document.getElementById('submit-text');
+  const formSuccess = document.getElementById('form-success');
 
-  form.addEventListener('submit',(e)=>{
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const nombre=document.getElementById('nombre').value.trim();
-    const telefono=document.getElementById('telefono').value.trim();
-    const email=document.getElementById('email').value.trim();
-    const servicio=document.getElementById('servicio').value;
-    const fecha=document.getElementById('fecha').value;
-    const mensaje=document.getElementById('mensaje').value.trim();
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const servicio = document.getElementById('servicio').value;
+    const fecha = document.getElementById('fecha').value;
+    const mensaje = document.getElementById('mensaje').value.trim();
 
-    if(!nombre||!telefono||!servicio){
-      [document.getElementById('nombre'),document.getElementById('telefono'),document.getElementById('servicio')].forEach(field=>{
-        if(!field.value.trim()){field.style.borderColor='#ef4444';setTimeout(()=>{field.style.borderColor='';},2500);}
+    if (!nombre || !telefono || !servicio) {
+      ['nombre','telefono','servicio'].forEach(id => {
+        const f = document.getElementById(id);
+        if (!f.value.trim()) { f.style.borderColor = '#ef4444'; f.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.1)'; setTimeout(() => { f.style.borderColor = ''; f.style.boxShadow = ''; }, 3000); }
       });
+      showToast('Por favor completa los campos requeridos', 'error');
       return;
     }
-    if(!email){
-      document.getElementById('email').style.borderColor='#ef4444';
-      document.getElementById('login-notice').style.background='#fef2f2';
-      setTimeout(()=>{document.getElementById('email').style.borderColor='';document.getElementById('login-notice').style.background='';},3000);
+    if (!email) {
+      const emailF = document.getElementById('email');
+      emailF.style.borderColor = '#ef4444';
+      emailF.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.1)';
+      setTimeout(() => { emailF.style.borderColor = ''; emailF.style.boxShadow = ''; }, 3000);
+      showToast('El correo electrónico es necesario para identificarte', 'warning');
       return;
     }
 
-    submitBtn.disabled=true;
-    submitText.textContent='Enviando solicitud...';
-    submitBtn.style.opacity='0.8';
+    submitBtn.disabled = true;
+    submitText.textContent = 'Enviando solicitud...';
+    submitBtn.style.opacity = '0.8';
 
-    // EmailJS send
-    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
-      from_name: nombre,
-      from_email: email,
-      phone: telefono,
-      service: servicio,
-      date: fecha||'Por definir',
-      message: mensaje||'Sin descripción adicional',
-      reply_to: email,
-      to_email: 'axelrivera635@gmail.com'
-    }).then(()=>{
-      form.style.display='none';
+    const emailBody = `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f8fafc;border-radius:12px;">
+        <div style="background:linear-gradient(135deg,#0d9488,#0f766e);padding:24px;border-radius:8px 8px 0 0;text-align:center;">
+          <h1 style="color:white;margin:0;font-size:22px;">🦶 Nueva Solicitud de Cita</h1>
+          <p style="color:rgba(255,255,255,0.8);margin:4px 0 0;font-size:14px;">Podología Avanzada · Derma Pharmacie</p>
+        </div>
+        <div style="background:white;padding:24px;border-radius:0 0 8px 8px;">
+          <table style="width:100%;border-collapse:collapse;">
+            <tr><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;color:#6b7280;font-size:13px;width:40%;">👤 Nombre</td><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;font-weight:600;font-size:13px;">${nombre}</td></tr>
+            <tr><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;color:#6b7280;font-size:13px;">📞 Teléfono</td><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;font-weight:600;font-size:13px;">${telefono}</td></tr>
+            <tr><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;color:#6b7280;font-size:13px;">📧 Correo</td><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;font-weight:600;font-size:13px;">${email}</td></tr>
+            <tr><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;color:#6b7280;font-size:13px;">🏥 Servicio</td><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;font-weight:600;font-size:13px;color:#0d9488;">${servicio}</td></tr>
+            <tr><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;color:#6b7280;font-size:13px;">📅 Fecha</td><td style="padding:10px 0;border-bottom:1px solid #f0fdfa;font-weight:600;font-size:13px;">${fecha||'Por definir'}</td></tr>
+            <tr><td style="padding:10px 0;color:#6b7280;font-size:13px;vertical-align:top;">💬 Mensaje</td><td style="padding:10px 0;font-size:13px;">${mensaje||'Sin descripción adicional'}</td></tr>
+          </table>
+          <div style="margin-top:20px;padding:16px;background:#f0fdfa;border-radius:8px;border-left:4px solid #0d9488;">
+            <p style="margin:0;font-size:12px;color:#0f766e;">Responde directamente a este correo o contacta al paciente por WhatsApp al ${telefono}.</p>
+          </div>
+        </div>
+      </div>`;
+
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer re_fpbLenJy_8Uy14Y8oBFTwTABXvrtXwT2E', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Podología Avanzada <onboarding@resend.dev>',
+        to: ['axelrivera635@gmail.com'],
+        reply_to: email,
+        subject: `🦶 Nueva Cita: ${nombre} — ${servicio}`,
+        html: emailBody
+      })
+    }).then(r => r.json()).then(data => {
+      form.style.display = 'none';
       formSuccess.classList.remove('hidden');
-      submitBtn.disabled=false;
-      submitBtn.style.opacity='1';
-      submitText.textContent='Confirmar Solicitud de Cita';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitText.textContent = 'Confirmar Solicitud de Cita';
       lucide.createIcons();
-    }).catch(()=>{
-      // Fallback if EmailJS not configured
-      form.style.display='none';
+      showToast('¡Solicitud enviada exitosamente! 🎉', 'success', 5000);
+    }).catch(() => {
+      form.style.display = 'none';
       formSuccess.classList.remove('hidden');
-      submitBtn.disabled=false;
-      submitBtn.style.opacity='1';
-      submitText.textContent='Confirmar Solicitud de Cita';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitText.textContent = 'Confirmar Solicitud de Cita';
       lucide.createIcons();
+      showToast('Solicitud registrada. Te contactaremos pronto.', 'info');
     });
   });
 
-  // Min date
-  const dateInput=document.getElementById('fecha');
-  if(dateInput) dateInput.setAttribute('min',new Date().toISOString().split('T')[0]);
+  // ─── MIN DATE ───
+  const dateInput = document.getElementById('fecha');
+  if (dateInput) dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
-  // Init on load
-  window.addEventListener('load',()=>{
-    lucide.createIcons();
-    renderTestimonialCarousel();
-  });
-  document.addEventListener('DOMContentLoaded',()=>{
-    lucide.createIcons();
-    renderTestimonialCarousel();
-  });
+  // ─── LIVE CLOCK in topbar ───
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const isOpen = now.getDay() >= 1 && now.getDay() <= 5 && now.getHours() >= 8 && now.getHours() < 18;
+    const clockEl = document.getElementById('live-clock');
+    if (clockEl) {
+      clockEl.innerHTML = `<span class="pulse-dot w-1.5 h-1.5 ${isOpen?'bg-green-300':'bg-red-300'} rounded-full inline-block mr-1"></span>${isOpen?'Abierto ahora':'Cerrado'} · ${h}:${m}`;
+    }
+  }
+  setInterval(updateClock, 1000);
+
+  // ─── INIT ───
+  window.addEventListener('load', () => { lucide.createIcons(); renderTestimonialCarousel(); updateClock(); });
+  document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); renderTestimonialCarousel(); updateClock(); });
 </script>
 </body>
 </html>
