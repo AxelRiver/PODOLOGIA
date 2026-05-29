@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/send.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/sw.js",
@@ -26,17 +21,9 @@
         { "key": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-      ]
     }
   ],
   "rewrites": [
-    { "source": "/api/send", "destination": "/api/send.js" },
     { "source": "/((?!api|_next|.*\\..*).*)", "destination": "/index.html" }
   ]
 }
