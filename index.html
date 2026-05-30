@@ -306,6 +306,8 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
 ::-webkit-scrollbar-thumb:hover { background:var(--gold); }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1807,34 +1809,38 @@ document.getElementById('contact-form').addEventListener('submit', async functio
 
   const modalidadLabel = modalidad === 'domicilio' ? 'Consulta a domicilio' : 'En consultorio';
 
-  // ── MÉTODO 1: EmailJS (conecta directo a Gmail) ────────────────────────
-  // Configura en https://emailjs.com → Service ID, Template ID, Public Key
-  const EJ_SVC = 'service_9roskyh';
-  const EJ_TPL = 'template_04qn15d';
-  const EJ_KEY = 'z6izSPQ4f_krlXuBM';
+ // ── MÉTODO 1: EmailJS ────────────────────────
+const EJ_SVC = 'service_9roskyh';
+const EJ_TPL = 'template_podo';
+const EJ_KEY = 'z6izSPQ4f_krlXuBM';
 
-  let sent = false;
+let sent = false;
 
-  if (typeof emailjs !== 'undefined' && EJ_KEY !== 'PLACEHOLDER') {
+if (typeof emailjs !== 'undefined') {
     try {
-      await emailjs.send(EJ_SVC, EJ_TPL, {
-        to_email  : 'axelrivera635@gmail.com',
-        from_name : nombre,
-        from_email: email,
-        phone     : telefono,
-        service   : servicio,
-        date      : fecha || 'Por definir',
-        modality  : modalidadLabel,
-        message   : mensaje || 'Sin descripción',
-        reply_to  : email,
-      }, EJ_KEY);
-      sent = true;
-      console.log('✅ Enviado vía EmailJS');
-    } catch (ejErr) {
-      console.warn('EmailJS error:', ejErr);
-    }
-  }
+        // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+        emailjs.init(EJ_KEY);   // ← Esta línea es CRÍTICA
+        // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 
+        await emailjs.send(EJ_SVC, EJ_TPL, {
+            from_name : nombre,
+            from_email: email,
+            phone     : telefono,
+            service   : servicio,
+            date      : fecha || 'Por definir',
+            modality  : modalidadLabel,
+            message   : mensaje || 'Sin descripción',
+            reply_to  : email,
+        });
+
+        sent = true;
+        console.log('✅ Enviado vía EmailJS');
+    } catch (ejErr) {
+        console.error('EmailJS error completo:', ejErr);
+        // Muestra más detalle del error
+        if (ejErr.text) console.error('Mensaje:', ejErr.text);
+    }
+}
   // ── MÉTODO 2: /api/send → Resend (respaldo servidor) ─────────────────────
   if (!sent) {
     try {
