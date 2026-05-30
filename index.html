@@ -1811,7 +1811,7 @@ document.getElementById('contact-form').addEventListener('submit', async functio
 
  // ── MÉTODO 1: EmailJS ────────────────────────
 const EJ_SVC = 'service_9roskyh';
-const EJ_TPL = 'template_s58s0rv';
+const EJ_TPL = 'template_podo';
 const EJ_KEY = 'z6izSPQ4f_krlXuBM';
 
 let sent = false;
@@ -1822,42 +1822,15 @@ if (typeof emailjs !== 'undefined') {
         emailjs.init(EJ_KEY);   // ← Esta línea es CRÍTICA
         // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 
-        // Construir mensaje completo para que aparezca en el correo
-        const mensajeCompleto = [
-          '━━━━━━━━━━━━━━━━━━━━━━━━━',
-          '🦶 NUEVA SOLICITUD DE CITA',
-          '━━━━━━━━━━━━━━━━━━━━━━━━━',
-          '👤 Nombre:    ' + nombre,
-          '📞 Teléfono:  ' + telefono,
-          '📧 Email:     ' + email,
-          '🏥 Servicio:  ' + servicio,
-          '📅 Fecha:     ' + (fecha || 'Por definir'),
-          '📍 Modalidad: ' + modalidadLabel,
-          '💬 Descripción: ' + (mensaje || 'Sin descripción'),
-          '━━━━━━━━━━━━━━━━━━━━━━━━━',
-          'Derma Pharmacie · Cuautitlán, Méx.',
-        ].join('\n');
-
         await emailjs.send(EJ_SVC, EJ_TPL, {
-          // Variables individuales (para templates con campos separados)
-          from_name   : nombre,
-          from_email  : email,
-          phone       : telefono,
-          nombre      : nombre,
-          telefono    : telefono,
-          correo      : email,
-          service     : servicio,
-          servicio    : servicio,
-          date        : fecha || 'Por definir',
-          fecha       : fecha || 'Por definir',
-          modality    : modalidadLabel,
-          modalidad   : modalidadLabel,
-          descripcion : mensaje || 'Sin descripción',
-          message     : mensajeCompleto,
-          mensaje     : mensajeCompleto,
-          reply_to    : email,
-          to_name     : 'Derma Pharmacie',
-          subject     : '🦶 Nueva Cita: ' + nombre + ' — ' + servicio,
+            from_name : nombre,
+            from_email: email,
+            phone     : telefono,
+            service   : servicio,
+            date      : fecha || 'Por definir',
+            modality  : modalidadLabel,
+            message   : mensaje || 'Sin descripción',
+            reply_to  : email,
         });
 
         sent = true;
