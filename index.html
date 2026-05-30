@@ -305,6 +305,7 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
 ::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:3px; }
 ::-webkit-scrollbar-thumb:hover { background:var(--gold); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -1374,6 +1375,15 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
 <script>
 lucide.createIcons();
 
+// ── EMAILJS INIT ─────────────────────────────────────────────────────────────
+(function(){
+  if(typeof emailjs !== 'undefined'){
+    // Reemplaza 'YOUR_PUBLIC_KEY' con tu Public Key de emailjs.com
+    emailjs.init({ publicKey: 'z6izSPQ4f_krlXuBM' });
+    console.log('EmailJS ready');
+  }
+})();
+
 // ── PWA ──────────────────────────────────────────────────────
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{
@@ -1758,224 +1768,130 @@ function updateClock(){
 }
 
 // ── RESEND EMAIL ──────────────────────────────────────────────
-document.getElementById('contact-form').addEventListener('submit',async e=>{
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const nombre=document.getElementById('nombre').value.trim();
-  const telefono=document.getElementById('telefono').value.trim();
-  const email=document.getElementById('email').value.trim();
-  const servicio=document.getElementById('servicio').value;
-  const fecha=document.getElementById('fecha').value;
-  const modalidad=document.getElementById('modalidad').value;
-  const mensaje=document.getElementById('mensaje').value.trim();
 
-  if(!nombre||!telefono||!servicio){
-    ['nombre','telefono','servicio'].forEach(id=>{
-      const f=document.getElementById(id);
-      if(!f.value.trim()){f.style.borderColor='#ef4444';f.style.boxShadow='0 0 0 3px rgba(239,68,68,.12)';setTimeout(()=>{f.style.borderColor='';f.style.boxShadow='';},3000);}
-    });
-    showToast('Completa los campos requeridos','error');return;
-  }
-  if(!email){
-    const ef=document.getElementById('email');
-    ef.style.borderColor='#ef4444';ef.style.boxShadow='0 0 0 3px rgba(239,68,68,.12)';
-    setTimeout(()=>{ef.style.borderColor='';ef.style.boxShadow='';},3000);
-    showToast('El correo es requerido para confirmación','warning');return;
-  }
+  const nombre   = (document.getElementById('nombre').value   || '').trim();
+  const telefono = (document.getElementById('telefono').value || '').trim();
+  const email    = (document.getElementById('email').value    || '').trim();
+  const servicio = document.getElementById('servicio').value  || '';
+  const fecha    = document.getElementById('fecha').value     || 'Por definir';
+  const modalidad= document.getElementById('modalidad').value || 'consultorio';
+  const mensaje  = (document.getElementById('mensaje').value  || '').trim();
 
-  const btn=document.getElementById('submit-btn'),txt=document.getElementById('submit-text');
-  btn.disabled=true;txt.textContent='Enviando...';btn.style.opacity='.75';
+  // ── Validación ────────────────────────────────────────────────────────────
+  const missing = [];
+  if (!nombre)   missing.push('nombre');
+  if (!telefono) missing.push('telefono');
+  if (!servicio) missing.push('servicio');
+  if (!email)    missing.push('email');
 
-  const html=`<div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#fdfcf7;border-radius:12px;border:1px solid rgba(201,169,110,.3)">
-    <div style="background:linear-gradient(135deg,#2c2416,#4a3820);padding:24px;border-radius:8px 8px 0 0;text-align:center;border-bottom:2px solid #c9a96e">
-      <h1 style="color:#e8ddb8;margin:0;font-size:22px;font-family:Georgia,serif">🦶 Nueva Solicitud de Cita</h1>
-      <p style="color:rgba(232,221,184,.7);margin:4px 0 0;font-size:13px">Derma Pharmacie · Podología Especializada</p>
-    </div>
-    <div style="background:white;padding:24px;border-radius:0 0 8px 8px">
-      <table style="width:100%;border-collapse:collapse">
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px;width:38%">👤 Nombre</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#2c2416">${nombre}</td></tr>
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px">📞 Teléfono</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#2c2416">${telefono}</td></tr>
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px">📧 Email</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#c9a96e">${email}</td></tr>
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px">🏥 Servicio</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#9a7340">${servicio}</td></tr>
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px">📅 Fecha</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#2c2416">${fecha||'Por definir'}</td></tr>
-        <tr><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;color:#8a7a60;font-size:13px">🏠 Modalidad</td><td style="padding:10px 0;border-bottom:1px solid #f5f0e0;font-weight:600;font-size:13px;color:#2c2416">${modalidad==='domicilio'?'Consulta a domicilio':'En consultorio'}</td></tr>
-        <tr><td style="padding:10px 0;color:#8a7a60;font-size:13px;vertical-align:top">💬 Mensaje</td><td style="padding:10px 0;font-size:13px;color:#2c2416">${mensaje||'Sin descripción adicional'}</td></tr>
-      </table>
-      <div style="margin-top:20px;padding:16px;background:#f5f0e0;border-radius:8px;border-left:3px solid #c9a96e">
-        <p style="margin:0;font-size:12px;color:#7a5a30">Contacta al paciente por WhatsApp al ${telefono} para confirmar la cita.</p>
-      </div>
-    </div>
-  </div>`;
-
-  try{
-    // Send via Vercel API route (avoids CORS with Resend)
-    const res=await fetch('/api/send',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nombre,telefono,email,servicio,fecha:fecha||'Por definir',modalidad,mensaje:mensaje||'Sin descripción adicional',html})
-    });
-    const data=await res.json();
-    console.log('Email response:',data);
-  }catch(err){console.warn('Email send error:',err);}
-
-  document.getElementById('contact-form').style.display='none';
-  document.getElementById('form-success').classList.remove('hidden');
-  btn.disabled=false;btn.style.opacity='1';txt.textContent='Confirmar Solicitud de Cita';
-  lucide.createIcons();
-  showToast('¡Solicitud enviada! Te contactaremos pronto 🎉','success',5000);
-});
-
-// ══ EXTRA INTERACTIONS ════════════════════════════════════════
-
-// Magnetic button effect
-document.querySelectorAll('.btn-gold,.btn-dark,.btn-outline').forEach(btn=>{
-  btn.classList.add('magnetic');
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const x=(e.clientX-r.left-r.width/2)*0.18;
-    const y=(e.clientY-r.top-r.height/2)*0.18;
-    btn.style.transform=`translate(${x}px,${y}px)`;
-  });
-  btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
-});
-
-// Parallax hero on mouse move
-const heroSection=document.querySelector('#inicio');
-if(heroSection){
-  heroSection.addEventListener('mousemove',e=>{
-    const x=(e.clientX/window.innerWidth-0.5)*20;
-    const y=(e.clientY/window.innerHeight-0.5)*20;
-    const bg=heroSection.querySelector('img');
-    if(bg) bg.style.transform=`scale(1.08) translate(${x*0.3}px,${y*0.3}px)`;
-  });
-  heroSection.addEventListener('mouseleave',()=>{
-    const bg=heroSection.querySelector('img');
-    if(bg) bg.style.transform='scale(1.05)';
-  });
-}
-
-// Lazy loading images
-if('IntersectionObserver' in window){
-  const lazyObs=new IntersectionObserver((entries,obs)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const img=entry.target;
-        img.classList.add('loaded');
-        obs.unobserve(img);
+  if (missing.length) {
+    missing.forEach(id => {
+      const f = document.getElementById(id);
+      if (f) {
+        f.style.borderColor = '#ef4444';
+        f.style.boxShadow   = '0 0 0 3px rgba(239,68,68,.12)';
+        setTimeout(() => { f.style.borderColor = ''; f.style.boxShadow = ''; }, 3000);
       }
     });
-  },{rootMargin:'200px'});
-  document.querySelectorAll('img').forEach(img=>lazyObs.observe(img));
-}
+    showToast('Por favor completa todos los campos requeridos.', 'error');
+    return;
+  }
 
-// Number counter with easing for stats strip in Acción section
-document.querySelectorAll('.stats-item .font-heading').forEach(el=>{
-  const target=parseInt(el.textContent);
-  if(!isNaN(target)&&target>0){
-    el.textContent='0';
-    const statsObs=new IntersectionObserver((entries,obs)=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){
-          let n=0;const step=target/30;
-          const t=setInterval(()=>{n+=step;if(n>=target){n=target;clearInterval(t);}el.textContent=Math.floor(n);},40);
-          obs.unobserve(en.target);
-        }
+  const btn = document.getElementById('submit-btn');
+  const txt = document.getElementById('submit-text');
+  btn.disabled = true;
+  txt.textContent = 'Enviando…';
+  btn.style.opacity = '.75';
+
+  const modalidadLabel = modalidad === 'domicilio' ? 'Consulta a domicilio' : 'En consultorio';
+
+  // ── MÉTODO 1: EmailJS (conecta directo a Gmail) ────────────────────────
+  // Configura en https://emailjs.com → Service ID, Template ID, Public Key
+  const EJ_SVC = 'service_9roskyh';
+  const EJ_TPL = 'template_04qn15d';
+  const EJ_KEY = 'z6izSPQ4f_krlXuBM';
+
+  let sent = false;
+
+  if (typeof emailjs !== 'undefined' && EJ_KEY !== 'PLACEHOLDER') {
+    try {
+      await emailjs.send(EJ_SVC, EJ_TPL, {
+        to_email  : 'axelrivera635@gmail.com',
+        from_name : nombre,
+        from_email: email,
+        phone     : telefono,
+        service   : servicio,
+        date      : fecha || 'Por definir',
+        modality  : modalidadLabel,
+        message   : mensaje || 'Sin descripción',
+        reply_to  : email,
+      }, EJ_KEY);
+      sent = true;
+      console.log('✅ Enviado vía EmailJS');
+    } catch (ejErr) {
+      console.warn('EmailJS error:', ejErr);
+    }
+  }
+
+  // ── MÉTODO 2: /api/send → Resend (respaldo servidor) ─────────────────────
+  if (!sent) {
+    try {
+      const apiRes  = await fetch('/api/send', {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify({ nombre, telefono, email, servicio, fecha, modalidad, mensaje }),
       });
-    },{threshold:.5});
-    statsObs.observe(el.parentElement);
-  }
-});
-
-// Cursor trail effect (gold sparkles on desktop)
-if(window.innerWidth>768){
-  const trail=[];
-  document.addEventListener('mousemove',e=>{
-    const dot=document.createElement('div');
-    dot.style.cssText=`position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:6px;height:6px;border-radius:50%;background:rgba(201,169,110,0.5);pointer-events:none;z-index:9998;transition:all .5s ease;transform:translate(-50%,-50%)`;
-    document.body.appendChild(dot);
-    setTimeout(()=>{dot.style.opacity='0';dot.style.transform='translate(-50%,-50%) scale(0)';},50);
-    setTimeout(()=>dot.remove(),550);
-  });
-}
-
-// Typing animation for hero subtitle
-(function(){
-  const el=document.querySelector('.hero-typing');
-  if(!el) return;
-  const texts=['Onicomicosis · Uña incarnada · Onicogrifosis','Pie diabético · Callosidades · Pie de atleta','Anestesia sin dolor · Previa cita','Consultorio y domicilio'];
-  let ti=0,ci=0,typing=true;
-  function tick(){
-    const txt=texts[ti];
-    if(typing){
-      el.textContent=txt.slice(0,ci+1);
-      ci++;
-      if(ci>=txt.length){typing=false;setTimeout(tick,1800);return;}
-    } else {
-      el.textContent=txt.slice(0,ci-1);
-      ci--;
-      if(ci<=0){typing=true;ti=(ti+1)%texts.length;setTimeout(tick,400);return;}
-    }
-    setTimeout(tick,typing?55:30);
-  }
-  setTimeout(tick,1200);
-})();
-
-// Smooth number hover on value cards
-document.querySelectorAll('.value-card').forEach(card=>{
-  card.addEventListener('mouseenter',()=>{
-    card.style.transition='all .35s cubic-bezier(.4,0,.2,1)';
-  });
-});
-
-// Scroll-triggered class for navbar active link
-const sections=document.querySelectorAll('section[id]');
-const navLinks=document.querySelectorAll('nav a[href^="#"]');
-window.addEventListener('scroll',()=>{
-  let current='';
-  sections.forEach(s=>{
-    if(window.scrollY>=s.offsetTop-100) current=s.id;
-  });
-  navLinks.forEach(a=>{
-    const isActive=a.getAttribute('href')==='#'+current;
-    a.style.color=isActive?'var(--gold-dark)':'var(--ink-muted)';
-    a.style.fontWeight=isActive?'600':'400';
-  });
-},{passive:true});
-
-// Gallery keyboard navigation
-let lightboxImages=[];
-let lightboxIndex=0;
-function openLightbox(card){
-  const img=card.querySelector('img');if(!img)return;
-  const allCards=document.querySelectorAll('.gallery-card');
-  lightboxImages=[...allCards].map(c=>c.querySelector('img')?.src).filter(Boolean);
-  lightboxIndex=[...allCards].indexOf(card);
-  document.getElementById('lightbox-img').src=img.src;
-  document.getElementById('lightbox').classList.remove('hidden');
-  document.body.style.overflow='hidden';
-}
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('lightbox').classList.contains('hidden')){
-    if(e.key==='ArrowRight'&&lightboxIndex<lightboxImages.length-1){
-      lightboxIndex++;document.getElementById('lightbox-img').src=lightboxImages[lightboxIndex];
-    }
-    if(e.key==='ArrowLeft'&&lightboxIndex>0){
-      lightboxIndex--;document.getElementById('lightbox-img').src=lightboxImages[lightboxIndex];
+      const apiData = await apiRes.json();
+      if (apiRes.ok && apiData.success) {
+        sent = true;
+        console.log('✅ Enviado vía /api/send. Via:', apiData.via);
+      } else {
+        console.warn('/api/send response:', apiData);
+      }
+    } catch (apiErr) {
+      console.warn('/api/send exception:', apiErr);
     }
   }
-});
 
-// Intersection observer for gallery items stagger
-const galleryObs=new IntersectionObserver((entries,obs)=>{
-  entries.forEach((en,i)=>{
-    if(en.isIntersecting){
-      setTimeout(()=>{en.target.style.opacity='1';en.target.style.transform='translateY(0)';},i*60);
-      obs.unobserve(en.target);
+  // ── MÉTODO 3: Web3Forms (respaldo client-side puro) ───────────────────────
+  if (!sent) {
+    try {
+      const w3f = await fetch('https://api.web3forms.com/submit', {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify({
+          access_key: 'f4a5e3b2-1c8d-4f9a-b6e7-2d3a8c5f1e4b',
+          subject   : '🦶 Nueva Cita: ' + nombre + ' — ' + servicio,
+          from_name : 'Derma Pharmacie',
+          email, nombre, telefono, servicio,
+          fecha     : fecha || 'Por definir',
+          modalidad : modalidadLabel,
+          mensaje   : mensaje || 'Sin descripción',
+        }),
+      });
+      const w3d = await w3f.json();
+      if (w3d.success) { sent = true; console.log('✅ Enviado vía Web3Forms'); }
+      else console.warn('Web3Forms:', w3d);
+    } catch (w3Err) {
+      console.warn('Web3Forms exception:', w3Err);
     }
-  });
-},{threshold:.1});
-document.querySelectorAll('.gallery-card').forEach((card,i)=>{
-  card.style.opacity='0';card.style.transform='translateY(20px)';card.style.transition='opacity .5s ease, transform .5s ease';
-  galleryObs.observe(card);
+  }
+
+  // ── Resultado ─────────────────────────────────────────────────────────────
+  btn.disabled = false; btn.style.opacity = '1';
+  txt.textContent = 'Confirmar Solicitud de Cita';
+
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').classList.remove('hidden');
+  lucide.createIcons();
+
+  if (sent) {
+    showToast('¡Solicitud enviada exitosamente! 🎉', 'success', 5000);
+  } else {
+    showToast('Solicitud recibida. Te contactaremos pronto por WhatsApp.', 'info', 6000);
+  }
 });
 
 // Service card click ripple + open modal
