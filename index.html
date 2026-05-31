@@ -1808,87 +1808,38 @@ document.getElementById('contact-form').addEventListener('submit', async functio
 
   const modalidadLabel = modalidad === 'domicilio' ? 'Consulta a domicilio' : 'En consultorio';
 
- // ── MÉTODO 1: EmailJS ────────────────────────
-const EJ_SVC = 'service_9roskyh';
-const EJ_TPL = 'template_s58s0rv';
-const EJ_KEY = 'z6izSPQ4f_krlXuBM';
+  // ── EmailJS ───────────────────────────────────────────────────────────────
+  const EJ_SVC = 'service_9roskyh';
+  const EJ_TPL = 'template_s58s0rv';
+  const EJ_KEY = 'z6izSPQ4f_krlXuBM';
 
-let sent = false;
+  const mensajeCompleto = mensaje || 'Sin descripción adicional';
 
-if (typeof emailjs !== 'undefined') {
-    try {
-        // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-           // ← Esta línea es CRÍTICA
-        // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+  let sent = false;
 
-                await emailjs.send(
-          EJ_SVC,
-          EJ_TPL,
-          {
-            from_name  : nombre,
-            name       : nombre,
-            email      : email,
-            from_email : email,
-            phone      : telefono,
-            service    : servicio,
-            date       : fecha || 'Por definir',
-            modality   : modalidadLabel,
-            message    : mensajeCompleto,
-            reply_to   : email,
-          },
-          { publicKey: EJ_KEY }
-        );
-
-        sent = true;
-        console.log('✅ Enviado vía EmailJS');
-    } catch (ejErr) {
-        console.error('EmailJS error completo:', ejErr);
-        // Muestra más detalle del error
-        if (ejErr.text) console.error('Mensaje:', ejErr.text);
-    }
-}
-  // ── MÉTODO 2: /api/send → Resend (respaldo servidor) ─────────────────────
-  if (!sent) {
-    try {
-      const apiRes  = await fetch('/api/send', {
-        method : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({ nombre, telefono, email, servicio, fecha, modalidad, mensaje }),
-      });
-      const apiData = await apiRes.json();
-      if (apiRes.ok && apiData.success) {
-        sent = true;
-        console.log('✅ Enviado vía /api/send. Via:', apiData.via);
-      } else {
-        console.warn('/api/send response:', apiData);
-      }
-    } catch (apiErr) {
-      console.warn('/api/send exception:', apiErr);
-    }
-  }
-
-  // ── MÉTODO 3: Web3Forms (respaldo client-side puro) ───────────────────────
-  if (!sent) {
-    try {
-      const w3f = await fetch('https://api.web3forms.com/submit', {
-        method : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({
-          access_key: 'f4a5e3b2-1c8d-4f9a-b6e7-2d3a8c5f1e4b',
-          subject   : '🦶 Nueva Cita: ' + nombre + ' — ' + servicio,
-          from_name : 'Derma Pharmacie',
-          email, nombre, telefono, servicio,
-          fecha     : fecha || 'Por definir',
-          modalidad : modalidadLabel,
-          mensaje   : mensaje || 'Sin descripción',
-        }),
-      });
-      const w3d = await w3f.json();
-      if (w3d.success) { sent = true; console.log('✅ Enviado vía Web3Forms'); }
-      else console.warn('Web3Forms:', w3d);
-    } catch (w3Err) {
-      console.warn('Web3Forms exception:', w3Err);
-    }
+  try {
+    await emailjs.send(
+      EJ_SVC,
+      EJ_TPL,
+      {
+        from_name  : nombre,
+        name       : nombre,
+        email      : email,
+        from_email : email,
+        phone      : telefono,
+        service    : servicio,
+        date       : fecha || 'Por definir',
+        modality   : modalidadLabel,
+        message    : mensajeCompleto,
+        reply_to   : email,
+      },
+      { publicKey: EJ_KEY }
+    );
+    sent = true;
+    console.log('✅ Enviado vía EmailJS');
+  } catch (ejErr) {
+    console.error('EmailJS error:', ejErr);
+    if (ejErr.text) console.error('Detalle:', ejErr.text);
   }
 
   // ── Resultado ─────────────────────────────────────────────────────────────
