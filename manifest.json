@@ -8,14 +8,61 @@
   "theme_color": "#c9a96e",
   "orientation": "portrait-primary",
   "icons": [
-    {"src":"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=192&h=192&fit=crop&auto=format","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=512&h=512&fit=crop&auto=format","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {
+      "src": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=192&h=192&fit=crop&auto=format",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=512&h=512&fit=crop&auto=format",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
-  "categories": ["health","medical"],
+  "categories": [
+    "health",
+    "medical"
+  ],
   "lang": "es",
   "shortcuts": [
-    {"name":"Agendar Cita","short_name":"Cita","url":"/#contacto"},
-    {"name":"WhatsApp Línea 1","short_name":"WA Aren","url":"https://wa.me/5215573998121"},
-    {"name":"WhatsApp Línea 2","short_name":"WA Jeanette","url":"https://wa.me/5215513956986"}
-  ]
+    {
+      "name": "Agendar Cita",
+      "short_name": "Cita",
+      "url": "/#contacto"
+    },
+    {
+      "name": "WhatsApp Línea 1",
+      "short_name": "WA Aren",
+      "url": "https://wa.me/5215573998121"
+    },
+    {
+      "name": "WhatsApp Línea 2",
+      "short_name": "WA Jeanette",
+      "url": "https://wa.me/5215513956986"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=540&h=720&fit=crop",
+      "sizes": "540x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Inicio Derma Pharmacie"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1024&h=768&fit=crop",
+      "sizes": "1024x768",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Servicios de Podología"
+    }
+  ],
+  "prefer_related_applications": false,
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "scope": "/"
 }
