@@ -386,6 +386,33 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
 .price-card.featured{border-color:var(--gold);background:linear-gradient(135deg,#fdfcf7,#f5f0e0);}
 .price-tag{font-family:'Cinzel',serif;font-size:28px;color:var(--gold-dark);font-weight:700;}
 .price-note{font-size:11px;color:var(--ink-muted);margin-left:4px;}
+
+/* ═══ DARK MODE ═══ */
+html.dark-mode {
+  --marble: #1a1208;
+  --marble-2: #221810;
+  --ink: #e8ddb8;
+  --ink-muted: rgba(232,221,184,.65);
+  --ink-light: rgba(232,221,184,.5);
+  --border: rgba(201,169,110,.2);
+  --shadow: 0 4px 24px rgba(0,0,0,.5);
+  --gold-light: #e8c97a;
+}
+html.dark-mode body { background:#1a1208; }
+html.dark-mode .form-input { background:#2c2010 !important; color:#e8ddb8 !important; border-color:rgba(201,169,110,.2) !important; }
+html.dark-mode .price-card { background:#2c2010; border-color:rgba(201,169,110,.15); }
+html.dark-mode .price-card.featured { background:linear-gradient(135deg,#2c2010,#3d2e12); }
+html.dark-mode header { background:rgba(22,14,6,.97) !important; }
+html.dark-mode .service-card, html.dark-mode .team-card, html.dark-mode .faq-item { background:#2c2010 !important; border-color:rgba(201,169,110,.15) !important; }
+html.dark-mode #modal-privacidad > div, html.dark-mode #modal-terminos > div { background:#221810; color:#e8ddb8; }
+/* ═══ MODAL LEGAL ═══ */
+.modal-legal { position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px; }
+.modal-legal-box { background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative;border:1px solid var(--border); }
+.modal-legal-box h2 { font-family:'Cinzel',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:16px; }
+.modal-legal-box h3 { font-family:'Cinzel',serif;font-size:1rem;color:var(--ink);margin:20px 0 8px; }
+.modal-legal-box p, .modal-legal-box li { font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-muted);line-height:1.7;margin-bottom:8px; }
+.modal-legal-box ul { padding-left:20px;margin-bottom:12px; }
+.modal-legal-close { position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--ink-muted);font-size:20px;line-height:1; }
 </style>
 <!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -555,6 +582,7 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
         <a href="#galeria" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">Galería</a>
         <a href="#en-accion" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">En Acción</a>
         <a href="#equipo" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">Equipo</a>
+        <a href="#precios" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">Precios</a>
         <a href="#faq" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">FAQ</a>
         <a href="#contacto" class="font-body text-sm transition-colors" style="color:var(--ink-muted)" onmouseover="this.style.color='var(--gold-dark)'" onmouseout="this.style.color='var(--ink-muted)'">Contacto</a>
       </nav>
@@ -562,6 +590,10 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
         <a href="#contacto" class="hidden sm:inline-flex btn-gold font-body text-sm px-5 py-2.5 rounded-xl items-center gap-2">
           <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Cita
         </a>
+        <button id="darkmode-btn" onclick="toggleDarkMode()" class="p-2 rounded-lg transition-colors" aria-label="Modo oscuro" style="color:var(--ink-muted)" title="Cambiar tema">
+          <svg id="dm-icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="dm-icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
         <button id="menu-btn" class="md:hidden p-2 rounded-lg transition-colors" aria-label="Menú" style="color:var(--ink-muted)">
           <i data-lucide="menu" class="w-5 h-5" id="menu-icon-open"></i>
           <i data-lucide="x" class="w-5 h-5 hidden" id="menu-icon-close"></i>
@@ -624,6 +656,9 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
       <button onclick="openCartaModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 btn-gold px-8 py-3.5 rounded-xl font-body">
         <i data-lucide="file-text" class="w-4 h-4"></i> Carta de Presentación
       </button>
+      <a href="#precios" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-body font-medium" style="background:rgba(201,169,110,.12);color:var(--gold-light);border:1px solid rgba(201,169,110,.35);backdrop-filter:blur(6px);transition:background .2s" onmouseover="this.style.background='rgba(201,169,110,.22)'" onmouseout="this.style.background='rgba(201,169,110,.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Ver Precios
+      </a>
     </div>
     <!-- Stats -->
     <div class="mt-16 grid grid-cols-3 gap-4 max-w-lg mx-auto">
@@ -1226,8 +1261,26 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
     </div>
     <p class="font-body text-center" style="color:var(--ink-muted);font-size:12px;margin-top:24px;">
       * Los precios son orientativos y pueden variar según complejidad del caso. Consulta sin compromiso.
-      <br>Aceptamos efectivo, tarjetas de débito y crédito.
     </p>
+    <!-- Formas de pago -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:20px;">
+      <div style="display:flex;align-items:center;gap:8px;background:var(--marble);border:1px solid var(--border);border-radius:12px;padding:10px 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-dark)"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);">Tarjeta débito / crédito</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--marble);border:1px solid var(--border);border-radius:12px;padding:10px 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-dark)"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);">Efectivo (MXN)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--marble);border:1px solid var(--border);border-radius:12px;padding:10px 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-dark)"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);">WhatsApp / consulta rápida</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--marble);border:1px solid var(--border);border-radius:12px;padding:10px 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-dark)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);">Consulta a domicilio disponible</span>
+      </div>
+    </div>
     <div style="text-align:center;margin-top:28px;">
       <a href="#contacto" style="display:inline-block;padding:14px 36px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#2c2416;font-family:Cinzel,serif;font-weight:600;font-size:14px;letter-spacing:.1em;border-radius:4px;text-decoration:none;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(201,169,110,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
         Agendar Cita Ahora
@@ -1413,7 +1466,7 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
               </div>
               <div>
                 <div class="font-body text-xs font-semibold uppercase tracking-wider mb-0.5" style="color:var(--ink-muted)">Email</div>
-                <a href="mailto:axelrivera635@gmail.com" class="font-body text-sm font-medium" style="color:var(--gold-dark)">axelrivera635@gmail.com</a>
+                <a href="mailto:dermapharmaciefoot@gmail.com" class="font-body text-sm font-medium" style="color:var(--gold-dark)">dermapharmaciefoot@gmail.com</a>
               </div>
             </div>
           </div>
@@ -1464,7 +1517,7 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
       <div>
         <h4 class="font-body text-xs font-semibold uppercase tracking-widest mb-4" style="color:rgba(201,169,110,.5)">Navegación</h4>
         <ul class="space-y-2.5">
-          <li><a href="#inicio" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Inicio</a></li><li><a href="#servicios" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Servicios</a></li><li><a href="#galeria" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Galería</a></li><li><a href="#equipo" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Equipo</a></li><li><a href="#faq" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">FAQ</a></li><li><a href="#contacto" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Contacto</a></li>
+          <li><a href="#inicio" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Inicio</a></li><li><a href="#servicios" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Servicios</a></li><li><a href="#galeria" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Galería</a></li><li><a href="#equipo" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Equipo</a></li><li><a href="#precios" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Precios</a></li><li><a href="#faq" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">FAQ</a></li><li><a href="#contacto" class="font-body text-sm transition-colors" style="color:rgba(201,169,110,.4)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.4)'">Contacto</a></li>
         </ul>
       </div>
       <div>
@@ -1476,10 +1529,10 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--gold); outline-o
     </div>
     <div class="w-full h-px mb-7" style="background:linear-gradient(90deg,transparent,rgba(201,169,110,.25),transparent)"></div>
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p id="footer-copyright" class="font-body text-xs cursor-default select-none" style="color:rgba(201,169,110,.3)">© 2025 Derma Pharmacie · Todos los derechos reservados</p>
+      <p id="footer-copyright" class="font-body text-xs cursor-default select-none" style="color:rgba(201,169,110,.3)">© 2026 Derma Pharmacie · Todos los derechos reservados</p>
       <div class="flex items-center gap-5">
-        <a href="#" class="font-body text-xs transition-colors" style="color:rgba(201,169,110,.3)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.3)'">Política de Privacidad</a>
-        <a href="#" class="font-body text-xs transition-colors" style="color:rgba(201,169,110,.3)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.3)'">Términos de Uso</a>
+        <a href="#" onclick="document.getElementById('modal-privacidad').classList.remove('hidden');return false;" class="font-body text-xs transition-colors" style="color:rgba(201,169,110,.3)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.3)'">Política de Privacidad</a>
+        <a href="#" onclick="document.getElementById('modal-terminos').classList.remove('hidden');return false;" class="font-body text-xs transition-colors" style="color:rgba(201,169,110,.3)" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='rgba(201,169,110,.3)'">Términos de Uso</a>
       </div>
     </div>
   </div>
@@ -2463,5 +2516,97 @@ function hideCookieBanner(accepted){
   counters.forEach(function(c){ obs2.observe(c); });
 })();
 </script>
+
+<!-- ═══ MODAL: Política de Privacidad ═══ -->
+<div id="modal-privacidad" class="modal-legal hidden" role="dialog" aria-modal="true" aria-labelledby="priv-title" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal-legal-box">
+    <button class="modal-legal-close" onclick="document.getElementById('modal-privacidad').classList.add('hidden')" aria-label="Cerrar">✕</button>
+    <h2 id="priv-title">Política de Privacidad</h2>
+    <p><strong>Derma Pharmacie</strong> · Última actualización: enero 2026</p>
+    <p>En cumplimiento con la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y su Reglamento, Derma Pharmacie informa sobre el tratamiento de sus datos personales.</p>
+    <h3>1. Responsable del tratamiento</h3>
+    <p>Derma Pharmacie, con domicilio en C. Independencia 57, loc 11-B, col. La Cofradía, Cuautitlán, Estado de México, C.P. 54870. Correo de contacto: dermapharmaciefoot@gmail.com</p>
+    <h3>2. Datos que recabamos</h3>
+    <ul>
+      <li>Nombre completo</li>
+      <li>Número de teléfono</li>
+      <li>Correo electrónico</li>
+      <li>Información sobre el padecimiento podológico (solo la que usted nos proporciona voluntariamente)</li>
+    </ul>
+    <h3>3. Finalidad del tratamiento</h3>
+    <ul>
+      <li>Agendar y confirmar citas médicas</li>
+      <li>Enviar recordatorios de cita vía WhatsApp o correo</li>
+      <li>Dar seguimiento post-tratamiento</li>
+      <li>Responder consultas y dudas</li>
+    </ul>
+    <h3>4. Transferencia de datos</h3>
+    <p>Sus datos no serán transferidos a terceros sin su consentimiento, salvo los casos previstos en el Art. 37 de la LFPDPPP.</p>
+    <h3>5. Cookies</h3>
+    <p>Este sitio utiliza cookies técnicas propias para mejorar la experiencia de navegación. No se usan cookies de seguimiento o publicidad. Puede configurar su navegador para rechazarlas.</p>
+    <h3>6. Derechos ARCO</h3>
+    <p>Puede ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación u Oposición</strong> enviando un correo a dermapharmaciefoot@gmail.com con asunto "Derechos ARCO".</p>
+    <h3>7. Cambios a esta política</h3>
+    <p>Nos reservamos el derecho de actualizar esta política en cualquier momento. Los cambios serán publicados en este sitio web.</p>
+    <div style="margin-top:24px;text-align:center">
+      <button onclick="document.getElementById('modal-privacidad').classList.add('hidden')" style="padding:10px 28px;background:linear-gradient(135deg,#8B7355,#c9a96e);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL: Términos de Uso ═══ -->
+<div id="modal-terminos" class="modal-legal hidden" role="dialog" aria-modal="true" aria-labelledby="term-title" onclick="if(event.target===this)this.classList.add('hidden')">
+  <div class="modal-legal-box">
+    <button class="modal-legal-close" onclick="document.getElementById('modal-terminos').classList.add('hidden')" aria-label="Cerrar">✕</button>
+    <h2 id="term-title">Términos de Uso</h2>
+    <p><strong>Derma Pharmacie</strong> · Última actualización: enero 2026</p>
+    <h3>1. Aceptación</h3>
+    <p>Al navegar o usar este sitio web usted acepta los presentes términos. Si no está de acuerdo, por favor no use el sitio.</p>
+    <h3>2. Servicios</h3>
+    <p>Este sitio tiene como finalidad informar sobre los servicios de podología de Derma Pharmacie y permitir la solicitud de citas. No constituye consulta médica ni diagnóstico clínico.</p>
+    <h3>3. Propiedad intelectual</h3>
+    <p>El contenido, imágenes, logotipos y marca Derma Pharmacie son propiedad exclusiva de sus titulares. Queda prohibida su reproducción sin autorización escrita.</p>
+    <h3>4. Responsabilidad</h3>
+    <p>Derma Pharmacie no se hace responsable de errores tipográficos en precios o disponibilidad. Los precios mostrados son orientativos y sujetos a cambio sin previo aviso.</p>
+    <h3>5. Citas y cancelaciones</h3>
+    <p>La solicitud de cita en línea no garantiza disponibilidad. Un especialista confirmará su cita vía WhatsApp o correo en un plazo máximo de 2 horas en horario de atención (Lun-Vie 9:00–18:00, Sáb 9:00–14:00).</p>
+    <h3>6. Ley aplicable</h3>
+    <p>Estos términos se rigen por las leyes vigentes de los Estados Unidos Mexicanos y cualquier controversia se resolverá ante los tribunales competentes de Cuautitlán, Estado de México.</p>
+    <div style="margin-top:24px;text-align:center">
+      <button onclick="document.getElementById('modal-terminos').classList.add('hidden')" style="padding:10px 28px;background:linear-gradient(135deg,#8B7355,#c9a96e);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DARK MODE JS ═══ -->
+<script>
+function toggleDarkMode() {
+  const isDark = document.documentElement.classList.toggle('dark-mode');
+  localStorage.setItem('dp-dark-mode', isDark ? '1' : '0');
+  document.getElementById('dm-icon-moon').classList.toggle('hidden', isDark);
+  document.getElementById('dm-icon-sun').classList.toggle('hidden', !isDark);
+}
+// Restore preference on load
+(function(){
+  if (localStorage.getItem('dp-dark-mode') === '1') {
+    document.documentElement.classList.add('dark-mode');
+    setTimeout(()=>{
+      const moon = document.getElementById('dm-icon-moon');
+      const sun = document.getElementById('dm-icon-sun');
+      if(moon) moon.classList.add('hidden');
+      if(sun) sun.classList.remove('hidden');
+    }, 100);
+  }
+})();
+</script>
+
+<!-- ═══ GA4 PLACEHOLDER — reemplaza G-XXXXXXXXXX con tu Measurement ID ═══ -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
 </body>
 </html>
